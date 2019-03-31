@@ -3,18 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MainMealFragment">
+    tools:context=".fragments.DisplayAllMealsFragment">
 
-    <!--CURRENTLY NOT IN USE-->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="APP NAME"/>
-
+    <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="How would you like to input your ingredients?" />
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

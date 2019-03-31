@@ -1,4 +1,4 @@
-package org.pursuit.mealprep.network;
+package org.pursuit.mealprep.controller;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +9,7 @@ import org.pursuit.mealprep.fragments.TypeInFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     int numberOfTabs;
+    String ingredients;
 
     public ViewPagerAdapter(FragmentManager fm, int numberOfTabs) {
         super(fm);
@@ -22,7 +23,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 TypeInFragment typeInFragment = TypeInFragment.newInstance();
                 return typeInFragment;
             case 1:
-                ChooseOptionFragment chooseOptionFragment = ChooseOptionFragment.newInstance();
+                ChooseOptionFragment chooseOptionFragment = ChooseOptionFragment.newInstance(ingredients);
                 return chooseOptionFragment;
             default:
                 return null;
