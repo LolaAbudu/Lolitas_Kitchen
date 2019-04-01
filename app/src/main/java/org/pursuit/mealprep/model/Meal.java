@@ -11,6 +11,35 @@ public class Meal {
     private NutritionFacts nutritionFacts;
     private List<String> ingredients = null;
     private List<String> directions = null;
+    private String image;
+    private List<String> keywords = null;
+//    private List<String> specificIngredients;
+
+
+//    public List<String> getSpecificIngredients() {
+//        return specificIngredients;
+//    }
+//
+//    public void setSpecificIngredients(List<String> specificIngredients) {
+//        this.specificIngredients = specificIngredients;
+//    }
+
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
 
     public String getId() {
         return id;
