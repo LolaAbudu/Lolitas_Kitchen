@@ -7,17 +7,11 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.CheckedTextView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import org.pursuit.mealprep.R;
@@ -29,26 +23,26 @@ import org.pursuit.mealprep.network.MealServices;
 import org.pursuit.mealprep.network.RetrofitSingleton;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
-import io.reactivex.Scheduler;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class ChooseOptionFragment extends Fragment {
+import static android.support.constraint.Constraints.TAG;
+
+public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
     private static final String INGREDIENTS = "ingredients";
-    private CheckBox ingredientsCheckbox;
-    private String ingredient;
     private ChooseOptionItemClickListener listener;
+    private CompositeDisposable compositeDisposable;
     Meal meal;
 
-    ArrayList<String> ingredients = new ArrayList<>();
-    CheckedTextView checkedTextView;
-    ArrayList<String> userSelections = new ArrayList<>();
+    private ArrayList<String> ingredients = new ArrayList<>();
+    private ArrayList<String> userSelections = new ArrayList<>();
 
 //    ChooseOptionAdapter chooseAdapter;
 //    RecyclerView chooseRecyclerView;
@@ -69,10 +63,7 @@ public class ChooseOptionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            ingredient = getArguments().getString(INGREDIENTS);
-        }
-
+        compositeDisposable = new CompositeDisposable();
     }
 
 //    private List<Meal> getIngredients(){
@@ -92,18 +83,14 @@ public class ChooseOptionFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        //ingredientsCheckbox = view.findViewById(R.id.ingredient_checkbox);
-        checkedTextView = view.findViewById(R.id.checked_text_view);
-        ListView listView = view.findViewById(R.id.list_view);
-        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+        RecyclerView ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
 
 //        List<String> items = new ArrayList<>();
         //find out how to save my keywords in this list/ or should it be an array of strings rather than a list
         //String[] items = meal.getKeywords();
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.choose_option_itemview, R.id.checked_text_view, items);
-//        listView.setAdapter(adapter);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//        ingredientsRecyclerView.setAdapter(adapter);
+//        ingredientsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String selectedItem = view.toString();
@@ -126,59 +113,31 @@ public class ChooseOptionFragment extends Fragment {
         Retrofit retrofit = RetrofitSingleton.getInstance();
         MealServices mealServices = retrofit.create(MealServices.class);
         Single<MealList> mealCall = mealServices.getMealList();
-        mealCall.subscribeOn(Schedulers.io())
+        compositeDisposable.add(mealCall.subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(meal -> {
-                            List<Meal> mealList = meal.getMeals();
-                            Log.d("TAG", "onResponse" + meal.getMeals().get(0).getKeywords());
+                .map(MealList::getMeals) // equivalent to mealList -> mealList.getMeals()
+                .subscribe(meals -> {
+//                            List<Meal> mealList = meal.getMeals();
+//                            Log.d("TAG", "onResponse" + meal.getMeals().get(0).getKeywords());
 
-                            List<String> items = new ArrayList<>();
-                            for (Meal meal1 : mealList) {
-                                items.addAll(meal1.getKeywords());
+                            for (Meal meal1 : meals) {
+                                ingredients.addAll(meal1.getKeywords());
                             }
 
-                            Set<String> singleItems = new HashSet<>();
-                            for(String meal2 : items){
-                                singleItems.add(meal2);
-                            }
-
-                            List<String> listItem = new ArrayList<>();
-                            for(String meal3 : singleItems){
-                                listItem.add(meal3);
-                            }
-
-                            Log.d("TAG", "size" + items.size());
-                            Log.d("TAG", "first" + items.get(0));
-                            Log.d("TAG", "last" + items.get(142));
-
-                            Log.d("TAG", "newList " + listItem.size());
-                            Log.d("TAG", "13 " + listItem.get(13));
-
-                            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.choose_option_itemview, R.id.checked_text_view, listItem);
-                            listView.setAdapter(adapter);
-//                            listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-
-
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    String selectedItem = listItem.get(position);
-                                    if (ingredients.contains(selectedItem)) {
-                                        ingredients.remove(selectedItem);
-                                        userSelections.add(selectedItem);
-                                        Toast.makeText(getContext(), selectedItem + " has been un-selected", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        ingredients.add(selectedItem);
-                                        userSelections.remove(selectedItem);
-                                        Toast.makeText(getContext(), selectedItem + " has been selected", Toast.LENGTH_SHORT).show();
-                                    }
-                                    Log.d("TAG", "userSelection " + userSelections);
-
-                                }
-                            });
+                            Set<String> uniqueIngredients = new HashSet<>(ingredients);
+                            String[] ingredientsList = uniqueIngredients.toArray(new String[0]);
+//                            Log.d("TAG", "size" + items.size());
+//                            Log.d("TAG", "first" + items.get(0));
+//                            Log.d("TAG", "last" + items.get(142));
+//
+//                            Log.d("TAG", "newList " + listItem.size());
+//                            Log.d("TAG", "13 " + listItem.get(13));
+                            ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, Arrays.asList(ingredientsList));
+                            Log.d(TAG, "onViewCreated: " + ingredients.size());
+                            ingredientsRecyclerView.setAdapter(adapter);
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
-                );
+                ));
     }
 
     //Log.d("TAG", "userSelection " + userSelections);
@@ -213,10 +172,29 @@ public class ChooseOptionFragment extends Fragment {
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         listener = null;
     }
+
+    @Override
+    public void addItem(String ingredient) {
+        userSelections.add(ingredient);
+        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void remove(String ingredient) {
+        userSelections.remove(ingredient);
+        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
+    }
+
 //
 //    public interface OnFragmentInteractionListener {
 //        void onFragmentInteraction(Uri uri);

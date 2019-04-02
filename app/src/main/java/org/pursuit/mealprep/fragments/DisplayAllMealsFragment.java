@@ -22,11 +22,11 @@ public class DisplayAllMealsFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static DisplayAllMealsFragment newInstance(String param1, String param2) {
+    public static DisplayAllMealsFragment newInstance() {
         DisplayAllMealsFragment fragment = new DisplayAllMealsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+//        args.putString(ARG_PARAM1, param1);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
