@@ -1,8 +1,9 @@
 package org.pursuit.mealprep.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Meal {
+public class Meal implements Serializable {
     private String id;
     private String name;
     private String category;
@@ -13,17 +14,6 @@ public class Meal {
     private List<String> directions = null;
     private String image;
     private List<String> keywords = null;
-//    private List<String> specificIngredients;
-
-
-//    public List<String> getSpecificIngredients() {
-//        return specificIngredients;
-//    }
-//
-//    public void setSpecificIngredients(List<String> specificIngredients) {
-//        this.specificIngredients = specificIngredients;
-//    }
-
 
     public String getImage() {
         return image;

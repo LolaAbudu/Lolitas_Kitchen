@@ -12,6 +12,7 @@ import org.pursuit.mealprep.view.ChooseOptionViewHolder;
 import java.util.List;
 
 public class ChooseOptionAdapter extends RecyclerView.Adapter<ChooseOptionViewHolder> {
+
     private List<String> ingredientsList;
     private IngredientSelectedListener listener;
 
@@ -36,6 +37,7 @@ public class ChooseOptionAdapter extends RecyclerView.Adapter<ChooseOptionViewHo
         return ingredientsList.size();
     }
 
+    //USE FOR BOTH CHOOSE OPTION AND TYPE IN
     public void setData(List<String> ingredients) {
         this.ingredientsList = ingredients;
         notifyDataSetChanged();

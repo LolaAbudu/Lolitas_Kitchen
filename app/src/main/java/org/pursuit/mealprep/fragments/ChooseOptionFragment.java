@@ -2,19 +2,23 @@ package org.pursuit.mealprep.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
+import org.pursuit.mealprep.MainActivity;
 import org.pursuit.mealprep.R;
+import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.controller.ChooseOptionAdapter;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.MealList;
@@ -38,15 +42,17 @@ import static android.support.constraint.Constraints.TAG;
 public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
     private static final String INGREDIENTS = "ingredients";
     private ChooseOptionItemClickListener listener;
+    private ViewPagerFragmentInteractionListener vpListener;
+
     private CompositeDisposable compositeDisposable;
-    Meal meal;
 
     private ArrayList<String> ingredients = new ArrayList<>();
     private ArrayList<String> userSelections = new ArrayList<>();
+    private ArrayList<Meal> listOfMeals = new ArrayList<>();
 
-//    ChooseOptionAdapter chooseAdapter;
-//    RecyclerView chooseRecyclerView;
+    private RecyclerView ingredientsRecyclerView;
 
+    Button showRecipeButton;
 
     public ChooseOptionFragment() {
         // Required empty public constructor
@@ -65,7 +71,6 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         super.onCreate(savedInstanceState);
         compositeDisposable = new CompositeDisposable();
     }
-
 //    private List<Meal> getIngredients(){
 //        List<Meal> ingredients = new ArrayList<>();
 //        meal = new Meal(meal.getKeywords())
@@ -83,8 +88,8 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        RecyclerView ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
-
+        ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
+        showRecipeButton = view.findViewById(R.id.show_recipe_button);
 //        List<String> items = new ArrayList<>();
         //find out how to save my keywords in this list/ or should it be an array of strings rather than a list
         //String[] items = meal.getKeywords();
@@ -119,13 +124,18 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                 .subscribe(meals -> {
 //                            List<Meal> mealList = meal.getMeals();
 //                            Log.d("TAG", "onResponse" + meal.getMeals().get(0).getKeywords());
-
                             for (Meal meal1 : meals) {
                                 ingredients.addAll(meal1.getKeywords());
                             }
 
+                                listOfMeals.addAll(meals);
+
+
                             Set<String> uniqueIngredients = new HashSet<>(ingredients);
                             String[] ingredientsList = uniqueIngredients.toArray(new String[0]);
+
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                            ingredientsRecyclerView.setLayoutManager(gridLayoutManager);
 //                            Log.d("TAG", "size" + items.size());
 //                            Log.d("TAG", "first" + items.get(0));
 //                            Log.d("TAG", "last" + items.get(142));
@@ -135,30 +145,26 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                             ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, Arrays.asList(ingredientsList));
                             Log.d(TAG, "onViewCreated: " + ingredients.size());
                             ingredientsRecyclerView.setAdapter(adapter);
+
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
+
+                showRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(vpListener != null){
+                    vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
+                }
+            }
+        });
     }
 
-    //Log.d("TAG", "userSelection " + userSelections);
-//                                        checkedTextView.setCheckMarkDrawable(R.drawable.ic_check);
-
-    //                                        checkedTextView.setChecked(false);
-
-
-//    public void showSelectedItems(View view) {
-//        String items = "";
-//        for (String item : ingredients) {
-//            items += " " + item + "\n";
+//    public void onButtonPressed() {
+//        if (listener != null) {
+//            listener.();
 //        }
-//        Toast.makeText(getContext(), "You have selected \n" + items, Toast.LENGTH_SHORT).show();
 //    }
-
-    public void onButtonPressed(Uri uri) {
-        if (listener != null) {
-            //listener.onIngredientClick(uri);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
@@ -166,6 +172,13 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         if (context instanceof ChooseOptionItemClickListener) {
             listener = (ChooseOptionItemClickListener) context;
         } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+
+        if(context instanceof ViewPagerFragmentInteractionListener){
+            vpListener = (ViewPagerFragmentInteractionListener) context;
+        }else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -186,17 +199,13 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     @Override
     public void addItem(String ingredient) {
         userSelections.add(ingredient);
-        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
+        Log.d("TAG", "uresSelectionList" + userSelections);
     }
 
     @Override
     public void remove(String ingredient) {
         userSelections.remove(ingredient);
-        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
     }
-
-//
-//    public interface OnFragmentInteractionListener {
-//        void onFragmentInteraction(Uri uri);
-//    }
 }
