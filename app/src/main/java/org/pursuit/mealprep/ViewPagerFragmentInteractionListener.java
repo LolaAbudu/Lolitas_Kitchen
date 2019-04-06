@@ -18,6 +18,10 @@ public interface ViewPagerFragmentInteractionListener {
                                 List<String> direction);
 
     void toAboutMe();
+//    void toSplashPage();
+
+    void toViewPagerFragment();
+
     //add later
     //  ,List<NutritionFacts> nutritionalFacts,
     //  List<Time> cookTime

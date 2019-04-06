@@ -13,6 +13,7 @@ import android.widget.Toast;
 import org.pursuit.mealprep.fragments.AboutMeFragment;
 import org.pursuit.mealprep.fragments.DisplayAllMealsFragment;
 import org.pursuit.mealprep.fragments.SelectedMealFragment;
+import org.pursuit.mealprep.fragments.SplashFragment;
 import org.pursuit.mealprep.fragments.ViewPagerFragment;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.NutritionFacts;
@@ -30,10 +31,21 @@ public class MainActivity extends AppCompatActivity implements ViewPagerFragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        SplashFragment splashFragment = SplashFragment.newInstance();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.main_container, splashFragment)
+                .commit();
+    }
+
+    @Override
+    public void toViewPagerFragment() {
         ViewPagerFragment viewPagerFragment = ViewPagerFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.main_container, viewPagerFragment).commit();
+        fragmentTransaction.replace(R.id.main_container, viewPagerFragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 //    @Override
@@ -85,6 +97,15 @@ public class MainActivity extends AppCompatActivity implements ViewPagerFragment
                 .addToBackStack(null)
                 .commit();
     }
+
+//    @Override
+//    public void toSplashPage() {
+//        SplashFragment splashFragment = SplashFragment.newInstance();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.replace(R.id.main_container, splashFragment)
+//                .commit();
+//    }
 
 //    @Override
 //    public boolean onCreateOptionsMenu(Menu menu) {
