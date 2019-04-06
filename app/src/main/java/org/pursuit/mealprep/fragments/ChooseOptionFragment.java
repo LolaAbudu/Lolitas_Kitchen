@@ -5,7 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,13 +15,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import org.pursuit.mealprep.MainActivity;
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.controller.ChooseOptionAdapter;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.MealList;
-//import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
 import org.pursuit.mealprep.network.MealServices;
 import org.pursuit.mealprep.network.RetrofitSingleton;
 
@@ -37,8 +34,6 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-import static android.support.constraint.Constraints.TAG;
-
 public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
     private static final String INGREDIENTS = "ingredients";
     private ViewPagerFragmentInteractionListener vpListener;
@@ -51,7 +46,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 
     private RecyclerView ingredientsRecyclerView;
 
-    Button showRecipeButton;
+    private Button showRecipeButton;
 
     public ChooseOptionFragment() {
         // Required empty public constructor
@@ -90,8 +85,8 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
         showRecipeButton = view.findViewById(R.id.show_recipe_button);
 //        List<String> items = new ArrayList<>();
-        //find out how to save my keywords in this list/ or should it be an array of strings rather than a list
-        //String[] items = meal.getKeywords();
+//        find out how to save my keywords in this list/ or should it be an array of strings rather than a list
+//        String[] items = meal.getKeywords();
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.choose_option_itemview, R.id.checked_text_view, items);
 //        ingredientsRecyclerView.setAdapter(adapter);
 //        ingredientsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

@@ -11,9 +11,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        android:background="#e09c14"
         android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,9 +23,11 @@
             android:id="@+id/app_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:fontFamily="casual"
             android:gravity="center"
-            android:text="APP NAME"
-            android:textSize="30sp" />
+            android:text="Lola's Meal-Prep"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
     </android.support.v7.widget.Toolbar>
 
@@ -33,16 +35,19 @@
         android:id="@+id/user_question_text_view"
         android:layout_width="match_parent"
         android:layout_height="30dp"
+        android:layout_margin="8dp"
+        android:background="#869184"
+        android:fontFamily="casual"
+        android:gravity="center_horizontal"
         android:text="How would you like to input your ingredients?"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:gravity="center_horizontal" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#dff442"
+        android:background="#90ad8a"
         android:minHeight="?attr/actionBarSize" />
 
     <LinearLayout
@@ -53,24 +58,11 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="450dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="8dp">
 
         </android.support.v4.view.ViewPager>
 
-        <!--<Button-->
-            <!--android:id="@+id/show_recipe_button"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:background="#dff442"-->
-            <!--android:text="Show Recipes"-->
-            <!--android:textSize="24sp" />-->
     </LinearLayout>
 
-
-    <!--<FrameLayout-->
-    <!--android:id="@+id/container"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
-    <!--</FrameLayout>-->
 </LinearLayout>
