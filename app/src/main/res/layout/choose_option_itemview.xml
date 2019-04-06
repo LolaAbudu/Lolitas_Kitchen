@@ -4,24 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <CheckedTextView
-        android:id="@+id/checked_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:checkMark="?android:attr/listChoiceIndicatorMultiple"
-        android:padding="15dp"
-        android:layout_margin="15dp"
-        android:gravity="center_vertical"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        <CheckedTextView
+            android:id="@+id/checked_text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:gravity="center_vertical"
+            android:padding="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 
-    <!--<CheckBox-->
-    <!--android:id="@+id/ingredient_checkbox"-->
-    <!--android:text="CheckBox"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:padding="5dp"-->
-    <!--app:layout_constraintStart_toStartOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent" />-->
+    <!--<CheckBox--><!--android:id="@+id/ingredient_checkbox"--><!--android:text="CheckBox"--><!--android:layout_width="wrap_content"--><!--android:layout_height="wrap_content"--><!--android:padding="5dp"--><!--app:layout_constraintStart_toStartOf="parent"--><!--app:layout_constraintTop_toTopOf="parent" />-->
