@@ -25,12 +25,6 @@ import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.controller.ViewPagerAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ViewPagerFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-
 public class ViewPagerFragment extends Fragment{
 
     private Button showRecipeButton;
