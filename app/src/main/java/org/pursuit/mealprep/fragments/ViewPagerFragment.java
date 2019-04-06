@@ -16,7 +16,7 @@ import android.widget.Button;
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.controller.ViewPagerAdapter;
 import org.pursuit.mealprep.model.Meal;
-import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
+//import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
 
 import java.util.List;
 
@@ -29,7 +29,7 @@ import java.util.List;
 public class ViewPagerFragment extends Fragment{
 
     private Button showRecipeButton;
-    private ChooseOptionItemClickListener fInterface;
+//    private ChooseOptionItemClickListener fInterface;
 //    private IngredientSelectedListener listener;
 
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -113,22 +113,22 @@ public class ViewPagerFragment extends Fragment{
 //        });
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ChooseOptionItemClickListener) {
-            fInterface = (ChooseOptionItemClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        fInterface = null;
-    }
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        if (context instanceof ChooseOptionItemClickListener) {
+//            fInterface = (ChooseOptionItemClickListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+//    }
+//
+//    @Override
+//    public void onDetach() {
+//        super.onDetach();
+//        fInterface = null;
+//    }
 
 
 }

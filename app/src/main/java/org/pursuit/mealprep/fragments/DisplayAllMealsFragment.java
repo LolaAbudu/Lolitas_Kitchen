@@ -1,6 +1,7 @@
 package org.pursuit.mealprep.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -37,28 +38,28 @@ import retrofit2.Retrofit;
 
 import static android.support.constraint.Constraints.TAG;
 
-public class DisplayAllMealsFragment extends Fragment implements ViewPagerFragmentInteractionListener {
+public class DisplayAllMealsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "meals";
     private static final String ARG_PARAM2 = "userSelection";
-    private static final String ARG_PARAM3 = "selectedMealList";
 
-    //    private Meal meals;
     private List<Meal> mealList;
     private List<String> userSelection;
-    private List<Meal> selectedMealList;
 
     private RecyclerView allMealsRecyclerView;
     private ArrayList<String> ingredients = new ArrayList<>();
 
     private CompositeDisposable compositeDisposable;
+    private ViewPagerFragmentInteractionListener listener;
+
 
 
     public DisplayAllMealsFragment() {
         // Required empty public constructor
     }
 
-    public static DisplayAllMealsFragment newInstance(List<Meal> meals, List<String> userSelection) {
+    public static DisplayAllMealsFragment newInstance(List<Meal> meals,
+                                                      List<String> userSelection) {
         DisplayAllMealsFragment fragment = new DisplayAllMealsFragment();
         Bundle args = new Bundle();
 
@@ -121,38 +122,45 @@ public class DisplayAllMealsFragment extends Fragment implements ViewPagerFragme
 
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        DisplayAllMealsAdapter adapter = new DisplayAllMealsAdapter(mealList);
+        DisplayAllMealsAdapter adapter = new DisplayAllMealsAdapter(returnSelectedMeals(mealList, userSelection),listener);
         allMealsRecyclerView.setAdapter(adapter);
         allMealsRecyclerView.setLayoutManager(linearLayoutManager);
+
+
     }
 
 
     //grab list of meals, remove everything thats not the userselection then return the list (make its own method)
     //if the Meal contain the keyword that contains the userSelection, add that meal into my new List
     //   then add the Meal
-//    public List<Meal> returnSelectedMeals(List<Meal> mealList, List<String> userSelection) {
-//        this.mealList = mealList;
-//        this.userSelection = userSelection;
-//
-//        for (int i = 0; i < mealList.size(); i++) {
-//            List<Meal> mealsContainingUserSelection = new ArrayList<>();
-//            if(mealList.get(i).getKeywords().contains(userSelection)){
-//                mealsContainingUserSelection.add(mealList.get(i));
-//                Log.d("TAG", "selectedMeals" + selectedMealList);
-//            }
-//        }
-//        return selectedMealList;
-//    }
+    public List<Meal> returnSelectedMeals(List<Meal> mealList, List<String> userSelection) {
 
-    @Override
-    public void toDisplayAllMealFragment(List<Meal> meals, List<String> userSelection) {
-        List<Meal> mealsContainingUserSelection = new ArrayList<>();
+        //List<Meal> mealsContainingUserSelection = new ArrayList<>();
+//Loop through all the Meals
+// if the Meal . get the Keyword . does NOT contains the userSelection
+//    remove the userSelection from the MealList
+//       return the mealList
         for (int i = 0; i < mealList.size(); i++) {
-            if(mealList.get(i).getKeywords().contains(userSelection)){
-                mealsContainingUserSelection.add(mealList.get(i));
-                Log.d("TAG", "selectedMeals" + selectedMealList);
+            if (!mealList.get(i).getKeywords().contains(userSelection)) {
+                mealList.remove(mealList.get(i));
+                Log.d("TAG", "selectedMeals" + mealList.size());
+
             }
         }
-//        return mealsContainingUserSelection;
+        return mealList;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof ViewPagerFragmentInteractionListener){
+            listener = (ViewPagerFragmentInteractionListener) context;
+        }else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 }
+
+
+//TODO- I have to override the back button press to keep the checked items still checked

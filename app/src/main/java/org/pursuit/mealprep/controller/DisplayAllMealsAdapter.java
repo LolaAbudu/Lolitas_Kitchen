@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
+import org.pursuit.mealprep.fragments.IngredientSelectedListener;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.view.DisplayAllMealsViewHolder;
 
@@ -15,10 +16,10 @@ import java.util.List;
 public class DisplayAllMealsAdapter extends RecyclerView.Adapter<DisplayAllMealsViewHolder> {
 
     private List<Meal> mealList;
-    //private ViewPagerFragmentInteractionListener viewPagerFragmentInteractionListener;
+    private ViewPagerFragmentInteractionListener viewPagerFragmentInteractionListener;
 
-    public DisplayAllMealsAdapter( List<Meal> mealList) {
-        //this.viewPagerFragmentInteractionListener = listener;
+    public DisplayAllMealsAdapter( List<Meal> mealList, ViewPagerFragmentInteractionListener listener) {
+        this.viewPagerFragmentInteractionListener = listener;
         this.mealList = mealList;
     }
 
@@ -30,7 +31,7 @@ public class DisplayAllMealsAdapter extends RecyclerView.Adapter<DisplayAllMeals
 
     @Override
     public void onBindViewHolder(@NonNull DisplayAllMealsViewHolder displayAllMealsViewHolder, int position) {
-        displayAllMealsViewHolder.onBind( mealList.get(position));
+        displayAllMealsViewHolder.onBind( mealList.get(position), viewPagerFragmentInteractionListener);
     }
 
     @Override

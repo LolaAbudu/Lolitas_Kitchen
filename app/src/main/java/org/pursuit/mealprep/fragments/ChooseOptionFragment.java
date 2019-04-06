@@ -22,7 +22,7 @@ import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.controller.ChooseOptionAdapter;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.MealList;
-import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
+//import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
 import org.pursuit.mealprep.network.MealServices;
 import org.pursuit.mealprep.network.RetrofitSingleton;
 
@@ -41,7 +41,6 @@ import static android.support.constraint.Constraints.TAG;
 
 public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
     private static final String INGREDIENTS = "ingredients";
-    private ChooseOptionItemClickListener listener;
     private ViewPagerFragmentInteractionListener vpListener;
 
     private CompositeDisposable compositeDisposable;
@@ -134,7 +133,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                             Set<String> uniqueIngredients = new HashSet<>(ingredients);
                             String[] ingredientsList = uniqueIngredients.toArray(new String[0]);
 
-                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
+                            GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                             ingredientsRecyclerView.setLayoutManager(gridLayoutManager);
 //                            Log.d("TAG", "size" + items.size());
 //                            Log.d("TAG", "first" + items.get(0));
@@ -143,7 +142,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 //                            Log.d("TAG", "newList " + listItem.size());
 //                            Log.d("TAG", "13 " + listItem.get(13));
                             ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, Arrays.asList(ingredientsList));
-                            Log.d(TAG, "onViewCreated: " + ingredients.size());
+                            Log.d("TAG", "onViewCreated: " + ingredients.size());
                             ingredientsRecyclerView.setAdapter(adapter);
 
                         },
@@ -156,25 +155,14 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                 if(vpListener != null){
                     vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
                 }
+
             }
         });
     }
 
-//    public void onButtonPressed() {
-//        if (listener != null) {
-//            listener.();
-//        }
-//    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof ChooseOptionItemClickListener) {
-            listener = (ChooseOptionItemClickListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
 
         if(context instanceof ViewPagerFragmentInteractionListener){
             vpListener = (ViewPagerFragmentInteractionListener) context;
@@ -193,7 +181,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     @Override
     public void onDetach() {
         super.onDetach();
-        listener = null;
+        vpListener = null;
     }
 
     @Override
