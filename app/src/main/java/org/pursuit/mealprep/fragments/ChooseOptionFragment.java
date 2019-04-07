@@ -24,9 +24,9 @@ import org.pursuit.mealprep.network.MealServices;
 import org.pursuit.mealprep.network.RetrofitSingleton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -40,9 +40,10 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 
     private CompositeDisposable compositeDisposable;
 
-    private ArrayList<String> ingredients = new ArrayList<>();
+    private Set<String> ingredients = new TreeSet<>();
     private ArrayList<String> userSelections = new ArrayList<>();
     private ArrayList<Meal> listOfMeals = new ArrayList<>();
+    private List<Ingredient> ingredientModels;
 
     private RecyclerView ingredientsRecyclerView;
 
@@ -94,7 +95,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 //            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                String selectedItem = view.toString();
 //                if (ingredients.contains(selectedItem)) {
-//                    ingredients.remove(selectedItem);
+//                    ingredients.removeItem(selectedItem);
 //                }else{
 //                    ingredients.add(selectedItem);
 //                }
@@ -118,25 +119,34 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                 .subscribe(meals -> {
 //                            List<Meal> mealList = meal.getMeals();
 //                            Log.d("TAG", "onResponse" + meal.getMeals().get(0).getKeywords());
+
+                    //TODO for loop should have an if check that check if the meal.getKeyword.contains(checkedbox strings), send them to the next fragment
                             for (Meal meal1 : meals) {
                                 ingredients.addAll(meal1.getKeywords());
                             }
 
-                                listOfMeals.addAll(meals);
+                            listOfMeals.addAll(meals);
 
+                            //TODO Questions, one how to save the list in alphabetical order
+                            //TODO how to save checkedBox position in a RecyclerView
 
-                            Set<String> uniqueIngredients = new HashSet<>(ingredients);
-                            String[] ingredientsList = uniqueIngredients.toArray(new String[0]);
+                            // No longer need to convert from ArrayList to Set, since
+                            // we now declare the ingredients field to be a HashSet above.
+                            //Set<String> uniqueIngredients = new HashSet<>(ingredients);
+
+                            // No longer needed, since you can convert from a HashSet to an
+                            // ArrayList directly using new ArrayList(
+                            //String[] ingredientsList = ingredients.toArray(new String[0]);
 
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                             ingredientsRecyclerView.setLayoutManager(gridLayoutManager);
-//                            Log.d("TAG", "size" + items.size());
-//                            Log.d("TAG", "first" + items.get(0));
-//                            Log.d("TAG", "last" + items.get(142));
-//
-//                            Log.d("TAG", "newList " + listItem.size());
-//                            Log.d("TAG", "13 " + listItem.get(13));
-                            ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, Arrays.asList(ingredientsList));
+
+                            ingredientModels = new ArrayList<>();
+                            for (String name : ingredients) {
+                                ingredientModels.add(new Ingredient(name));
+                            }
+
+                            ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, ingredientModels);
                             Log.d("TAG", "onViewCreated: " + ingredients.size());
                             ingredientsRecyclerView.setAdapter(adapter);
 
@@ -168,6 +178,12 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        userSelections.clear();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         compositeDisposable.clear();
@@ -180,15 +196,15 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     }
 
     @Override
-    public void addItem(String ingredient) {
-        userSelections.add(ingredient);
+    public void addItem(Ingredient ingredient) {
+        userSelections.add(ingredient.name);
         Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
         Log.d("TAG", "uresSelectionList" + userSelections);
     }
 
     @Override
-    public void remove(String ingredient) {
-        userSelections.remove(ingredient);
+    public void removeItem(Ingredient ingredient) {
+        userSelections.remove(ingredient.name);
         Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
     }
 }

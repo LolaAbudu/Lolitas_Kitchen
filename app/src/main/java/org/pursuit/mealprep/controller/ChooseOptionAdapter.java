@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import org.pursuit.mealprep.R;
+import org.pursuit.mealprep.fragments.Ingredient;
 import org.pursuit.mealprep.fragments.IngredientSelectedListener;
 import org.pursuit.mealprep.view.ChooseOptionViewHolder;
 
@@ -14,13 +15,13 @@ import java.util.List;
 
 public class ChooseOptionAdapter extends RecyclerView.Adapter<ChooseOptionViewHolder> {
 
-    private List<String> ingredientsList;
+    private List<Ingredient> ingredientsList;
     private IngredientSelectedListener listener;
 
     //use to save the state of the checked Textbox
     private SparseBooleanArray itemStateArray= new SparseBooleanArray();
 
-    public ChooseOptionAdapter(IngredientSelectedListener listener, List<String> ingredientsList) {
+    public ChooseOptionAdapter(IngredientSelectedListener listener, List<Ingredient> ingredientsList) {
         this.ingredientsList = ingredientsList;
         this.listener = listener;
     }
@@ -42,9 +43,8 @@ public class ChooseOptionAdapter extends RecyclerView.Adapter<ChooseOptionViewHo
     }
 
     //USE FOR BOTH CHOOSE OPTION AND TYPE IN
-    public void setData(List<String> ingredients) {
+    public void setData(List<Ingredient> ingredients) {
         this.ingredientsList = ingredients;
         notifyDataSetChanged();
-
     }
 }

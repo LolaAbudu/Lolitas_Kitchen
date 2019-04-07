@@ -11,7 +11,7 @@
             android:layout_margin="15dp"
             android:checkMark="?android:attr/listChoiceIndicatorMultiple"
             android:gravity="center_vertical"
-            android:padding="15dp"
+            android:padding="@dimen/choose_option_itemview_checkedTextView_padding"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

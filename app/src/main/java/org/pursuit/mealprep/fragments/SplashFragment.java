@@ -27,7 +27,7 @@ public class SplashFragment extends Fragment {
     private String mParam2;
 
     private ViewPagerFragmentInteractionListener vpListener;
-    private static final int SPLASH_TIME_OUT = 3000;
+    private static final int SPLASH_TIME_OUT = 1500;
 
     public SplashFragment() {
         // Required empty public constructor
@@ -77,17 +77,13 @@ public class SplashFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-//                super.run();
-                try {
-                    sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                vpListener.toViewPagerFragment();
+        new Handler().postDelayed(() -> {
+            try {
+                sleep(1500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+            vpListener.toViewPagerFragment();
         }, SPLASH_TIME_OUT);
 
 

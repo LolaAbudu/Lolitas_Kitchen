@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.CheckedTextView;
 
 import org.pursuit.mealprep.R;
+import org.pursuit.mealprep.fragments.Ingredient;
 import org.pursuit.mealprep.fragments.IngredientSelectedListener;
 
 public class ChooseOptionViewHolder extends RecyclerView.ViewHolder {
@@ -17,14 +18,21 @@ public class ChooseOptionViewHolder extends RecyclerView.ViewHolder {
     }
 
     //ask if i should be passing the list of ingredients here
-    public void onBind(IngredientSelectedListener listener, final String ingredient) {
-        ingredientCheckBox.setText(ingredient);
+    public void onBind(IngredientSelectedListener listener, final Ingredient ingredient) {
+        ingredientCheckBox.setText(ingredient.name);
+        ingredientCheckBox.setChecked(ingredient.isChecked);
+
         ingredientCheckBox.setOnClickListener(item -> {
+            ingredientCheckBox.setChecked(ingredient.isChecked);
+            ingredient.isChecked = !ingredient.isChecked;
+
             if (ingredientCheckBox.isChecked()) {
                 ingredientCheckBox.setChecked(false);
-                listener.remove(ingredient);
+//                ingredient.isChecked = false;
+                listener.removeItem(ingredient);
             } else {
                 ingredientCheckBox.setChecked(true);
+//                ingredient.isChecked = true;
                 listener.addItem(ingredient);
             }
         });

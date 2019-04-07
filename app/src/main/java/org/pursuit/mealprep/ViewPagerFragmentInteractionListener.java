@@ -1,10 +1,7 @@
 package org.pursuit.mealprep;
 
 import org.pursuit.mealprep.model.Meal;
-import org.pursuit.mealprep.model.NutritionFacts;
-import org.pursuit.mealprep.model.Time;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface ViewPagerFragmentInteractionListener {
@@ -18,7 +15,6 @@ public interface ViewPagerFragmentInteractionListener {
                                 List<String> direction);
 
     void toAboutMe();
-//    void toSplashPage();
 
     void toViewPagerFragment();
 

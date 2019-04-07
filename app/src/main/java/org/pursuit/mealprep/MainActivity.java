@@ -1,14 +1,9 @@
 package org.pursuit.mealprep;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
 
 import org.pursuit.mealprep.fragments.AboutMeFragment;
 import org.pursuit.mealprep.fragments.DisplayAllMealsFragment;
@@ -16,12 +11,8 @@ import org.pursuit.mealprep.fragments.SelectedMealFragment;
 import org.pursuit.mealprep.fragments.SplashFragment;
 import org.pursuit.mealprep.fragments.ViewPagerFragment;
 import org.pursuit.mealprep.model.Meal;
-import org.pursuit.mealprep.model.NutritionFacts;
-import org.pursuit.mealprep.model.Time;
 //import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ViewPagerFragmentInteractionListener {

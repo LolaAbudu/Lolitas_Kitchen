@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
+import org.pursuit.mealprep.fragments.Ingredient;
 import org.pursuit.mealprep.fragments.IngredientSelectedListener;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.view.DisplayAllMealsViewHolder;
@@ -37,6 +38,11 @@ public class DisplayAllMealsAdapter extends RecyclerView.Adapter<DisplayAllMeals
     @Override
     public int getItemCount() {
         return mealList.size();
+    }
+
+    public void setData(List<Meal> meals) {
+        this.mealList = meals;
+        notifyDataSetChanged();
     }
 }
 //ViewPagerFragmentInteractionListener listener,

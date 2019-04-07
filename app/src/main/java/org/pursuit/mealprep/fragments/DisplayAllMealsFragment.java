@@ -43,14 +43,17 @@ public class DisplayAllMealsFragment extends Fragment {
     private static final String ARG_PARAM1 = "meals";
     private static final String ARG_PARAM2 = "userSelection";
 
-    private List<Meal> mealList;
+    private List<Meal> mealList=new ArrayList<>();
     private List<String> userSelection;
 
     private RecyclerView allMealsRecyclerView;
     private ArrayList<String> ingredients = new ArrayList<>();
+    private List<Meal> userSelectionList=new ArrayList<>();
 
     private CompositeDisposable compositeDisposable;
     private ViewPagerFragmentInteractionListener listener;
+    private DisplayAllMealsAdapter adapter;
+    private LinearLayoutManager linearLayoutManager;
 
 
 
@@ -62,10 +65,8 @@ public class DisplayAllMealsFragment extends Fragment {
                                                       List<String> userSelection) {
         DisplayAllMealsFragment fragment = new DisplayAllMealsFragment();
         Bundle args = new Bundle();
-
         args.putSerializable(ARG_PARAM1, (Serializable) meals);
         args.putSerializable(ARG_PARAM2, (Serializable) userSelection);
-//        args.putSerializable(ARG_PARAM3, (Serializable) selectedMealList);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,10 +77,8 @@ public class DisplayAllMealsFragment extends Fragment {
         if (getArguments() != null) {
             mealList = (List<Meal>) getArguments().getSerializable(ARG_PARAM1);
             userSelection = (List<String>) getArguments().getSerializable(ARG_PARAM2);
-//            selectedMealList = (List<Meal>) getArguments().getSerializable(ARG_PARAM3);
+            adapter = new DisplayAllMealsAdapter(userSelectionList,listener);
         }
-//        compositeDisposable = new CompositeDisposable();
-
     }
 
     @Override
@@ -119,36 +118,43 @@ public class DisplayAllMealsFragment extends Fragment {
 //                        },
 //                        throwable -> Log.d("TAG", "onFailure" + throwable)
 //                ));
-
-
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        DisplayAllMealsAdapter adapter = new DisplayAllMealsAdapter(returnSelectedMeals(mealList, userSelection),listener);
+        userSelectionList.clear();
+        for(int i = 0; i < mealList.size(); i++){
+          for(int j = 0; j < userSelection.size(); j++){
+              if(mealList.get(i).getKeywords().contains(userSelection.get(j))){
+                  Log.e("mealsListKeywords: ", mealList.get(i).getKeywords().size()+ "");
+                 userSelectionList.add(mealList.get(i));
+                  Log.e("mealAdded: ", mealList.get(i)+"");
+                  Log.d("TAG", "mealListSize: " + mealList.size());
+              }
+          }
+        }
+        adapter.setData(userSelectionList);
         allMealsRecyclerView.setAdapter(adapter);
+        linearLayoutManager = new LinearLayoutManager(getContext());
         allMealsRecyclerView.setLayoutManager(linearLayoutManager);
-
-
     }
 
 
     //grab list of meals, remove everything thats not the userselection then return the list (make its own method)
     //if the Meal contain the keyword that contains the userSelection, add that meal into my new List
     //   then add the Meal
-    public List<Meal> returnSelectedMeals(List<Meal> mealList, List<String> userSelection) {
-
-        //List<Meal> mealsContainingUserSelection = new ArrayList<>();
-//Loop through all the Meals
-// if the Meal . get the Keyword . does NOT contains the userSelection
-//    remove the userSelection from the MealList
-//       return the mealList
-        for (int i = 0; i < mealList.size(); i++) {
-            if (!mealList.get(i).getKeywords().contains(userSelection)) {
-                mealList.remove(mealList.get(i));
-                Log.d("TAG", "selectedMeals" + mealList.size());
-
-            }
-        }
-        return mealList;
-    }
+//    public List<Meal> returnSelectedMeals(List<Meal> mealList, List<String> userSelection) {
+//
+//        //List<Meal> mealsContainingUserSelection = new ArrayList<>();
+////Loop through all the Meals
+//// if the Meal . get the Keyword . does NOT contains the userSelection
+////    remove the userSelection from the MealList
+////       return the mealList
+//        for (int i = 0; i < mealList.size(); i++) {
+//            if (!mealList.get(i).getKeywords().contains(userSelection)) {
+//                mealList.remove(mealList.get(i));
+//                Log.d("TAG", "selectedMeals" + mealList.size());
+//
+//            }
+//        }
+//        return mealList;
+//    }
 
     @Override
     public void onAttach(Context context) {
@@ -159,6 +165,14 @@ public class DisplayAllMealsFragment extends Fragment {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+
+//        adapter = new DisplayAllMealsAdapter(userSelectionList,listener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        mealList.clear();
     }
 }
 
