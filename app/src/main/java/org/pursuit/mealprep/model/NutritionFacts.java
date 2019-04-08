@@ -37,5 +37,4 @@ public class NutritionFacts {
     public void setCarbohydrates(String carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
-
 }

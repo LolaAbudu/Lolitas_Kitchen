@@ -28,5 +28,4 @@ public class Time {
     public void setTotalTime(String totalTime) {
         this.totalTime = totalTime;
     }
-
 }

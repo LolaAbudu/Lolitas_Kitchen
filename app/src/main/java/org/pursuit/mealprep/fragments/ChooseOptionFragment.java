@@ -36,24 +36,23 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
-    private static final String INGREDIENTS = "ingredients";
     private FragmentInteractionListener vpListener;
     private CompositeDisposable compositeDisposable;
+    private RecyclerView ingredientsRecyclerView;
 
-    private Set<String> ingredients = new TreeSet<>();
     private ArrayList<String> userSelections = new ArrayList<>();
     private ArrayList<Meal> listOfMeals = new ArrayList<>();
     private List<Ingredient> uniqueIngredientList;
+    private Set<String> ingredients = new TreeSet<>();
 
-    private RecyclerView ingredientsRecyclerView;
     private Button showRecipeButton;
 
-    public ChooseOptionFragment() { }
+    public ChooseOptionFragment() {
+    }
 
-    public static ChooseOptionFragment newInstance(String ingredient) {
+    public static ChooseOptionFragment newInstance() {
         ChooseOptionFragment fragment = new ChooseOptionFragment();
         Bundle args = new Bundle();
-        args.putString(INGREDIENTS, ingredient);
         fragment.setArguments(args);
         return fragment;
     }
@@ -103,7 +102,6 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
-
         sendingUserToDisplayAllMealFragment();
     }
 

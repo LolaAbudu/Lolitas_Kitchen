@@ -1,8 +1,6 @@
 package org.pursuit.mealprep.fragments;
 
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -21,14 +19,10 @@ import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.NutritionFacts;
 import org.pursuit.mealprep.model.Time;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectedMealFragment extends Fragment {
-
-//    private static final String MEALS_KEY = "name";
 
     private static final String NAME_KEY = "name";
     private static final String IMAGE_KEY = "image";
@@ -65,25 +59,14 @@ public class SelectedMealFragment extends Fragment {
                                                    String image,
                                                    String description,
                                                    List<String> ingredients,
-                                                   List<String> direction
-    ) {
-        //add to above
-        // ,List<NutritionFacts> nutritionalFacts,
-        // List<Time> cookTime
-
+                                                   List<String> direction) {
         SelectedMealFragment fragment = new SelectedMealFragment();
         Bundle args = new Bundle();
-//        args.putSerializable(MEALS_KEY, (Serializable) meals);
-
         args.putString(NAME_KEY, name);
         args.putString(IMAGE_KEY, image);
         args.putString(DESCRIPTION_KEY, description);
         args.putStringArrayList(INGREDIENTS_KEY, (ArrayList<String>) ingredients);
         args.putStringArrayList(DIRECTION_KEY, (ArrayList<String>) direction);
-//        args.putSerializable(NUTRITIONAL_FACT_KEY, (Serializable) nutritionalFacts);
-//        args.putSerializable(COOK_TIME_KEY, (Serializable) cookTime);
-
-        //List<Meal> meals
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,10 +74,8 @@ public class SelectedMealFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-//            mealList = (List<Meal>) getArguments().getSerializable(MEALS_KEY);
-
-
             name = getArguments().getString(NAME_KEY);
             image = getArguments().getString(IMAGE_KEY);
             description = getArguments().getString(DESCRIPTION_KEY);
@@ -108,7 +89,6 @@ public class SelectedMealFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_selected_meal, container, false);
     }
 
@@ -125,8 +105,6 @@ public class SelectedMealFragment extends Fragment {
         cookTimeTextView = view.findViewById(R.id.selected_meal_cookTime_textView);
         emailButton = view.findViewById(R.id.selected_email_button);
 
-//        String name = mealList.
-//        nameTextView.setText();
         nameTextView.setText(name);
         Picasso.get().load(image).into(imageImageView);
         descriptionTextView.setText(description);
@@ -135,23 +113,19 @@ public class SelectedMealFragment extends Fragment {
 //        nutritionalFactsTextView.setText(nutritionalFacts);
 //        cookTimeTextView.setText(cookTime);
 
-        emailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = "lolabunny1206@yahoo.com";
-                String subject = "Meal: " + name;
-                String body = name + "/n" + image + "/n" + description + "/n" + ingredients + "/n" + direction;
-                String title = "Lola Meal Prep";
+        emailButton.setOnClickListener(v -> {
+            String email = "lolabunny1206@yahoo.com";
+            String subject = "Meal: " + name;
+            String body = name + "/n" + image + "/n" + description + "/n" + ingredients + "/n" + direction;
+            String title = "Lola Meal Prep";
 
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
 
-                startActivity(Intent.createChooser(emailIntent, title));
-            }
+            startActivity(Intent.createChooser(emailIntent, title));
         });
-
     }
 }

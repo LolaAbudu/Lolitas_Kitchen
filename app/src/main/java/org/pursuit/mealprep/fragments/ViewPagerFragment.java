@@ -18,23 +18,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.controller.ViewPagerAdapter;
 
-public class ViewPagerFragment extends Fragment{
-
-//    private Button showRecipeButton;
+public class ViewPagerFragment extends Fragment {
 
     private Toolbar toolBar;
     private FragmentInteractionListener vpListener;
 
 
     public ViewPagerFragment() {
-        // Required empty public constructor
     }
 
 
@@ -48,11 +44,6 @@ public class ViewPagerFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//
-//        if (getArguments() != null) {
-////            mParam1 = getArguments().getString(ARG_PARAM1);
-////            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
     }
 
     @Override
@@ -60,8 +51,9 @@ public class ViewPagerFragment extends Fragment{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
         toolBar = view.findViewById(R.id.toolbar);
-        if(toolBar != null){
-            ((AppCompatActivity)getActivity()).setSupportActionBar(toolBar);
+
+        if (toolBar != null) {
+            ((AppCompatActivity) getActivity()).setSupportActionBar(toolBar);
         }
         this.setHasOptionsMenu(true);
         return view;
@@ -70,9 +62,9 @@ public class ViewPagerFragment extends Fragment{
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentInteractionListener){
+        if (context instanceof FragmentInteractionListener) {
             vpListener = (FragmentInteractionListener) context;
-        }else {
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -126,7 +118,7 @@ public class ViewPagerFragment extends Fragment{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if(id == R.id.about_me) {
+        if (id == R.id.about_me) {
             vpListener.toAboutMe();
         } else if (id == R.id.main_github) {
             Intent mainGitHub = new Intent(Intent.ACTION_VIEW);

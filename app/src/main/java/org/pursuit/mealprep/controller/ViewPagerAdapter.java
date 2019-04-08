@@ -8,8 +8,8 @@ import org.pursuit.mealprep.fragments.ChooseOptionFragment;
 import org.pursuit.mealprep.fragments.TypeInFragment;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
+
     private int numberOfTabs;
-    private String ingredients;
 
     public ViewPagerAdapter(FragmentManager fm, int numberOfTabs) {
         super(fm);
@@ -22,7 +22,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return TypeInFragment.newInstance();
             case 1:
-                return ChooseOptionFragment.newInstance(ingredients);
+                return ChooseOptionFragment.newInstance();
             default:
                 return null;
         }

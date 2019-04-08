@@ -11,7 +11,6 @@ import org.pursuit.mealprep.fragments.SelectedMealFragment;
 import org.pursuit.mealprep.fragments.SplashFragment;
 import org.pursuit.mealprep.fragments.ViewPagerFragment;
 import org.pursuit.mealprep.model.Meal;
-//import org.pursuit.mealprep.network.ChooseOptionItemClickListener;
 
 import java.util.List;
 
@@ -39,16 +38,6 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 .commit();
     }
 
-//    @Override
-//    public void toDisplayAllMealsFragment() {
-//        DisplayAllMealsFragment displayAllMealsFragment = DisplayAllMealsFragment.newInstance();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.main_container, displayAllMealsFragment)
-//                .addToBackStack(null)
-//                .commit();
-//    }
-
     @Override
     public void toDisplayAllMealFragment(List<Meal> meals,
                                          List<String> userSelection) {
@@ -65,8 +54,7 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                                        String image,
                                        String description,
                                        List<String> ingredients,
-                                       List<String> direction
-    ) {
+                                       List<String> direction) {
         //TODO add to above later
         // ,ArrayList<NutritionFacts> nutritionalFacts,
         // ArrayList<Time> cookTime
@@ -88,42 +76,5 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                 .addToBackStack(null)
                 .commit();
     }
-
-//    @Override
-//    public void toSplashPage() {
-//        SplashFragment splashFragment = SplashFragment.newInstance();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.replace(R.id.main_container, splashFragment)
-//                .commit();
-//    }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.projects_menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.main_github) {
-//            Intent mainGitHub = new Intent(Intent.ACTION_VIEW);
-//            mainGitHub.setData(Uri.parse("https://github.com/LolaAbudu?tab=repositories"));
-//            startActivity(mainGitHub);
-//            Toast.makeText(getApplicationContext(), "Lola's GitHub Account", Toast.LENGTH_SHORT).show();
-//        } else if (id == R.id.meal_prep_github) {
-//            Intent mealPrepGitHub = new Intent(Intent.ACTION_VIEW);
-//            mealPrepGitHub.setData(Uri.parse("https://github.com/LolaAbudu/Meal_Prep"));
-//            startActivity(mealPrepGitHub);
-//            Toast.makeText(getApplicationContext(), "Meal-Prep-GitHub", Toast.LENGTH_SHORT).show();
-//        } else if (id == R.id.linkedIn) {
-//            Intent linkedIn = new Intent(Intent.ACTION_VIEW);
-//            linkedIn.setData(Uri.parse("https://www.linkedin.com/in/omolola-abudu/"));
-//            startActivity(linkedIn);
-//            Toast.makeText(getApplicationContext(), "Lola's LinkedIn", Toast.LENGTH_SHORT).show();
-//        }
-//        return super.onOptionsItemSelected(item);
-//    }
 }
 

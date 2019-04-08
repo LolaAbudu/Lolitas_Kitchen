@@ -18,24 +18,15 @@ import static java.lang.Thread.sleep;
 
 public class SplashFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    private String mParam1;
-    private String mParam2;
-
     private FragmentInteractionListener vpListener;
     private static final int SPLASH_TIME_OUT = 1500;
 
     public SplashFragment() {
-        // Required empty public constructor
     }
 
     public static SplashFragment newInstance() {
         SplashFragment fragment = new SplashFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -43,25 +34,20 @@ public class SplashFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_splash, container, false);
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof FragmentInteractionListener){
+        if (context instanceof FragmentInteractionListener) {
             vpListener = (FragmentInteractionListener) context;
-        }else {
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -83,20 +69,5 @@ public class SplashFragment extends Fragment {
             }
             vpListener.toViewPagerFragment();
         }, SPLASH_TIME_OUT);
-
-
-//        Thread splashThread = new Thread(){
-//            @Override
-//            public void run() {
-////                super.run();
-//                try {
-//                    sleep(3000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//                vpListener.toSplashPage();
-//            }
-//        }; SPLASH_TIME_OUT)
-//        splashThread.start();
     }
 }
