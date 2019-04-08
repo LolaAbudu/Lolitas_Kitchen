@@ -2,7 +2,6 @@ package org.pursuit.mealprep.fragments;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -12,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import org.pursuit.mealprep.MainActivity;
+import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 
 import static java.lang.Thread.sleep;
 
@@ -26,7 +24,7 @@ public class SplashFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ViewPagerFragmentInteractionListener vpListener;
+    private FragmentInteractionListener vpListener;
     private static final int SPLASH_TIME_OUT = 1500;
 
     public SplashFragment() {
@@ -61,8 +59,8 @@ public class SplashFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof ViewPagerFragmentInteractionListener){
-            vpListener = (ViewPagerFragmentInteractionListener) context;
+        if(context instanceof FragmentInteractionListener){
+            vpListener = (FragmentInteractionListener) context;
         }else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");

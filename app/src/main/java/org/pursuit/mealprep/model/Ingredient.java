@@ -1,4 +1,4 @@
-package org.pursuit.mealprep.fragments;
+package org.pursuit.mealprep.model;
 
 import androidx.annotation.NonNull;
 

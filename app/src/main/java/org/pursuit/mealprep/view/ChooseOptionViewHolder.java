@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.CheckedTextView;
 
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.fragments.Ingredient;
+import org.pursuit.mealprep.model.Ingredient;
 import org.pursuit.mealprep.fragments.IngredientSelectedListener;
 
 public class ChooseOptionViewHolder extends RecyclerView.ViewHolder {

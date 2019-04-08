@@ -15,7 +15,7 @@ import org.pursuit.mealprep.model.Meal;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements ViewPagerFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

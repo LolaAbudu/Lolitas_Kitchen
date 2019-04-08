@@ -4,7 +4,7 @@ import org.pursuit.mealprep.model.Meal;
 
 import java.util.List;
 
-public interface ViewPagerFragmentInteractionListener {
+public interface FragmentInteractionListener {
     void toDisplayAllMealFragment(List<Meal> meals,
                                   List<String> userSelection);
 
@@ -17,10 +17,4 @@ public interface ViewPagerFragmentInteractionListener {
     void toAboutMe();
 
     void toViewPagerFragment();
-
-    //add later
-    //  ,List<NutritionFacts> nutritionalFacts,
-    //  List<Time> cookTime
 }
-
-//List<Meal> meals

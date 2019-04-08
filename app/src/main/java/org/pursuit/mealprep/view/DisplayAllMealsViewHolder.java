@@ -2,19 +2,17 @@ package org.pursuit.mealprep.view;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.model.Meal;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DisplayAllMealsViewHolder extends RecyclerView.ViewHolder {
     private TextView mealNameTextView;
@@ -29,7 +27,7 @@ public class DisplayAllMealsViewHolder extends RecyclerView.ViewHolder {
         mealImageView = itemView.findViewById(R.id.mealImage_imageview);
     }
 
-    public void onBind(final Meal meal, ViewPagerFragmentInteractionListener vpListener) {
+    public void onBind(final Meal meal, FragmentInteractionListener vpListener) {
 //        List<Meal> mealList = new ArrayList<>();
 //        mealList.add(meal);
 //        Log.d("TAG", "mealListSize" + mealList.size());
@@ -66,4 +64,4 @@ public class DisplayAllMealsViewHolder extends RecyclerView.ViewHolder {
         });
     }
 }
-//ViewPagerFragmentInteractionListener listener,
+//FragmentInteractionListener listener,

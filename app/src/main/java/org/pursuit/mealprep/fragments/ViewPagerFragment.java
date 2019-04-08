@@ -22,24 +22,15 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
+import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.controller.ViewPagerAdapter;
 
 public class ViewPagerFragment extends Fragment{
 
-    private Button showRecipeButton;
-//    private ChooseOptionItemClickListener fInterface;
-//    private IngredientSelectedListener listener;
-
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-//
-//    private String mParam1;
-//    private String mParam2;
+//    private Button showRecipeButton;
 
     private Toolbar toolBar;
-    private ViewPagerFragmentInteractionListener vpListener;
+    private FragmentInteractionListener vpListener;
 
 
     public ViewPagerFragment() {
@@ -50,8 +41,6 @@ public class ViewPagerFragment extends Fragment{
     public static ViewPagerFragment newInstance() {
         ViewPagerFragment fragment = new ViewPagerFragment();
         Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -59,11 +48,11 @@ public class ViewPagerFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+//
+//        if (getArguments() != null) {
+////            mParam1 = getArguments().getString(ARG_PARAM1);
+////            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
     }
 
     @Override
@@ -76,14 +65,13 @@ public class ViewPagerFragment extends Fragment{
         }
         this.setHasOptionsMenu(true);
         return view;
-
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof ViewPagerFragmentInteractionListener){
-            vpListener = (ViewPagerFragmentInteractionListener) context;
+        if(context instanceof FragmentInteractionListener){
+            vpListener = (FragmentInteractionListener) context;
         }else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -126,41 +114,7 @@ public class ViewPagerFragment extends Fragment{
 
             }
         });
-
-
-//        showRecipeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(fInterface != null){
-//                    fInterface.toDisplayAllMealsFragment();
-//                }
-//            }
-//        });
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater()
-////        super.onCreateOptionsMenu(menu, inflater);
-//    }
-
-    //    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof ChooseOptionItemClickListener) {
-//            fInterface = (ChooseOptionItemClickListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
-//
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        fInterface = null;
-//    }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -174,9 +128,6 @@ public class ViewPagerFragment extends Fragment{
         int id = item.getItemId();
         if(id == R.id.about_me) {
             vpListener.toAboutMe();
-//            Intent aboutMeIntent = new Intent(getContext(), MainActivity.class);
-//            startActivity(aboutMeIntent);
-//            Toast.makeText(getContext(), "Lola's About Me", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.main_github) {
             Intent mainGitHub = new Intent(Intent.ACTION_VIEW);
             mainGitHub.setData(Uri.parse("https://github.com/LolaAbudu?tab=repositories"));
@@ -195,5 +146,4 @@ public class ViewPagerFragment extends Fragment{
         }
         return super.onOptionsItemSelected(item);
     }
-
 }

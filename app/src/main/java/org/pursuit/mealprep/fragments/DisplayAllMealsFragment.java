@@ -1,12 +1,10 @@
 package org.pursuit.mealprep.fragments;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,46 +13,32 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
-import org.pursuit.mealprep.controller.ChooseOptionAdapter;
+import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.controller.DisplayAllMealsAdapter;
 import org.pursuit.mealprep.model.Meal;
-import org.pursuit.mealprep.model.MealList;
-import org.pursuit.mealprep.network.MealServices;
-import org.pursuit.mealprep.network.RetrofitSingleton;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Retrofit;
-
-import static android.support.constraint.Constraints.TAG;
 
 public class DisplayAllMealsFragment extends Fragment {
 
     private static final String ARG_PARAM1 = "meals";
     private static final String ARG_PARAM2 = "userSelection";
 
-    private List<Meal> mealList=new ArrayList<>();
+    private List<Meal> mealList = new ArrayList<>();
     private List<String> userSelection;
 
     private RecyclerView allMealsRecyclerView;
     private ArrayList<String> ingredients = new ArrayList<>();
-    private List<Meal> userSelectionList=new ArrayList<>();
+    private List<Meal> userSelectionList = new ArrayList<>();
 
     private CompositeDisposable compositeDisposable;
-    private ViewPagerFragmentInteractionListener listener;
+    private FragmentInteractionListener listener;
     private DisplayAllMealsAdapter adapter;
     private LinearLayoutManager linearLayoutManager;
-
 
 
     public DisplayAllMealsFragment() {
@@ -77,8 +61,10 @@ public class DisplayAllMealsFragment extends Fragment {
         if (getArguments() != null) {
             mealList = (List<Meal>) getArguments().getSerializable(ARG_PARAM1);
             userSelection = (List<String>) getArguments().getSerializable(ARG_PARAM2);
-            adapter = new DisplayAllMealsAdapter(userSelectionList,listener);
+            adapter = new DisplayAllMealsAdapter(userSelectionList, listener);
         }
+
+
     }
 
     @Override
@@ -119,20 +105,27 @@ public class DisplayAllMealsFragment extends Fragment {
 //                        throwable -> Log.d("TAG", "onFailure" + throwable)
 //                ));
         userSelectionList.clear();
-        for(int i = 0; i < mealList.size(); i++){
-          for(int j = 0; j < userSelection.size(); j++){
-              if(mealList.get(i).getKeywords().contains(userSelection.get(j))){
-                  Log.e("mealsListKeywords: ", mealList.get(i).getKeywords().size()+ "");
-                 userSelectionList.add(mealList.get(i));
-                  Log.e("mealAdded: ", mealList.get(i)+"");
-                  Log.d("TAG", "mealListSize: " + mealList.size());
-              }
-          }
-        }
+
+
+        addUniqueMealsWithSelectedIngredients();
+
+        //TODO write another for loop that checks if the meal already exists in my userSelectionList, dont add it again
         adapter.setData(userSelectionList);
         allMealsRecyclerView.setAdapter(adapter);
         linearLayoutManager = new LinearLayoutManager(getContext());
         allMealsRecyclerView.setLayoutManager(linearLayoutManager);
+    }
+
+    public void addUniqueMealsWithSelectedIngredients() {
+        for (int i = 0; i < mealList.size(); i++) {
+            for (int j = 0; j < userSelection.size(); j++) {
+                if (mealList.get(i).getKeywords().contains(userSelection.get(j))) {
+                    if (!userSelectionList.contains(mealList.get(i))) {
+                        userSelectionList.add(mealList.get(i));
+                    }
+                }
+            }
+        }
     }
 
 
@@ -159,14 +152,12 @@ public class DisplayAllMealsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if(context instanceof ViewPagerFragmentInteractionListener){
-            listener = (ViewPagerFragmentInteractionListener) context;
-        }else {
+        if (context instanceof FragmentInteractionListener) {
+            listener = (FragmentInteractionListener) context;
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-
-//        adapter = new DisplayAllMealsAdapter(userSelectionList,listener);
     }
 
     @Override
@@ -174,7 +165,10 @@ public class DisplayAllMealsFragment extends Fragment {
         super.onPause();
 //        mealList.clear();
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        mealList = mealList;
+//    }
 }
-
-
-//TODO- I have to override the back button press to keep the checked items still checked
