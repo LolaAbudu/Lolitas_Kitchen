@@ -4,10 +4,9 @@ import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.NutritionFacts;
 import org.pursuit.mealprep.model.Time;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public interface ViewPagerFragmentInteractionListener {
+public interface FragmentInteractionListener {
     void toDisplayAllMealFragment(List<Meal> meals,
                                   List<String> userSelection);
 
@@ -15,16 +14,11 @@ public interface ViewPagerFragmentInteractionListener {
                                 String image,
                                 String description,
                                 List<String> ingredients,
-                                List<String> direction);
+                                List<String> direction,
+                                NutritionFacts nutritionalFacts,
+                                Time cookTime);
 
     void toAboutMe();
-//    void toSplashPage();
 
     void toViewPagerFragment();
-
-    //add later
-    //  ,List<NutritionFacts> nutritionalFacts,
-    //  List<Time> cookTime
 }
-
-//List<Meal> meals

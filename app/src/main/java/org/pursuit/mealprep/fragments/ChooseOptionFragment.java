@@ -15,18 +15,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.ViewPagerFragmentInteractionListener;
 import org.pursuit.mealprep.controller.ChooseOptionAdapter;
+import org.pursuit.mealprep.model.Ingredient;
 import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.MealList;
 import org.pursuit.mealprep.network.MealServices;
 import org.pursuit.mealprep.network.RetrofitSingleton;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -35,27 +36,22 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
 public class ChooseOptionFragment extends Fragment implements IngredientSelectedListener {
-    private static final String INGREDIENTS = "ingredients";
-    private ViewPagerFragmentInteractionListener vpListener;
-
+    private FragmentInteractionListener vpListener;
     private CompositeDisposable compositeDisposable;
+    private RecyclerView ingredientsRecyclerView;
 
-    private ArrayList<String> ingredients = new ArrayList<>();
     private ArrayList<String> userSelections = new ArrayList<>();
     private ArrayList<Meal> listOfMeals = new ArrayList<>();
-
-    private RecyclerView ingredientsRecyclerView;
+    private List<Ingredient> uniqueIngredientList;
+    private Set<String> ingredients = new TreeSet<>();
 
     private Button showRecipeButton;
 
-    public ChooseOptionFragment() {
-        // Required empty public constructor
-    }
+    public ChooseOptionFragment() { }
 
-    public static ChooseOptionFragment newInstance(String ingredient) {
+    public static ChooseOptionFragment newInstance() {
         ChooseOptionFragment fragment = new ChooseOptionFragment();
         Bundle args = new Bundle();
-        args.putString(INGREDIENTS, ingredient);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,12 +61,6 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         super.onCreate(savedInstanceState);
         compositeDisposable = new CompositeDisposable();
     }
-//    private List<Meal> getIngredients(){
-//        List<Meal> ingredients = new ArrayList<>();
-//        meal = new Meal(meal.getKeywords())
-//        ingredients.add();
-//        return;
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -84,31 +74,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         super.onViewCreated(view, savedInstanceState);
         ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
         showRecipeButton = view.findViewById(R.id.show_recipe_button);
-//        List<String> items = new ArrayList<>();
-//        find out how to save my keywords in this list/ or should it be an array of strings rather than a list
-//        String[] items = meal.getKeywords();
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), R.layout.choose_option_itemview, R.id.checked_text_view, items);
-//        ingredientsRecyclerView.setAdapter(adapter);
-//        ingredientsRecyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                String selectedItem = view.toString();
-//                if (ingredients.contains(selectedItem)) {
-//                    ingredients.remove(selectedItem);
-//                }else{
-//                    ingredients.add(selectedItem);
-//                }
-//            }
-//        });
 
-//        chooseRecyclerView = view.findViewById(R.id.choose_option_recyclerview);
-//        final GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 3);
-//        chooseAdapter = new ChooseOptionAdapter(new ArrayList<>());
-//        chooseRecyclerView.setLayoutManager(gridLayoutManager);
-//        chooseRecyclerView.setAdapter(chooseAdapter);
-
-
-        //do retrofit call here
         Retrofit retrofit = RetrofitSingleton.getInstance();
         MealServices mealServices = retrofit.create(MealServices.class);
         Single<MealList> mealCall = mealServices.getMealList();
@@ -116,55 +82,64 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(MealList::getMeals) // equivalent to mealList -> mealList.getMeals()
                 .subscribe(meals -> {
-//                            List<Meal> mealList = meal.getMeals();
-//                            Log.d("TAG", "onResponse" + meal.getMeals().get(0).getKeywords());
-                            for (Meal meal1 : meals) {
-                                ingredients.addAll(meal1.getKeywords());
-                            }
 
-                                listOfMeals.addAll(meals);
+                            listOfMeals.clear();
 
+                            addsAllUniqueIngredients(meals);
 
-                            Set<String> uniqueIngredients = new HashSet<>(ingredients);
-                            String[] ingredientsList = uniqueIngredients.toArray(new String[0]);
+                            listOfMeals.addAll(meals);
 
                             GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
                             ingredientsRecyclerView.setLayoutManager(gridLayoutManager);
-//                            Log.d("TAG", "size" + items.size());
-//                            Log.d("TAG", "first" + items.get(0));
-//                            Log.d("TAG", "last" + items.get(142));
-//
-//                            Log.d("TAG", "newList " + listItem.size());
-//                            Log.d("TAG", "13 " + listItem.get(13));
-                            ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, Arrays.asList(ingredientsList));
-                            Log.d("TAG", "onViewCreated: " + ingredients.size());
+
+                            transformingSetOfIngredientsIntoAList();
+
+                            ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, uniqueIngredientList);
                             ingredientsRecyclerView.setAdapter(adapter);
 
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
+        sendingUserToDisplayAllMealFragment();
+    }
 
-                showRecipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(vpListener != null){
-                    vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
-                }
+    private void transformingSetOfIngredientsIntoAList() {
+        uniqueIngredientList = new ArrayList<>();
+        for (String name : ingredients) {
+            uniqueIngredientList.add(new Ingredient(name));
+        }
+    }
 
+    private void sendingUserToDisplayAllMealFragment() {
+        showRecipeButton.setOnClickListener(v -> {
+            if (vpListener != null) {
+                vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
             }
         });
+    }
+
+    public void addsAllUniqueIngredients(List<Meal> meals) {
+        for (Meal meal1 : meals) {
+            ingredients.addAll(meal1.getKeywords());
+        }
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if(context instanceof ViewPagerFragmentInteractionListener){
-            vpListener = (ViewPagerFragmentInteractionListener) context;
-        }else {
+        if (context instanceof FragmentInteractionListener) {
+            vpListener = (FragmentInteractionListener) context;
+        } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        userSelections.clear();
     }
 
     @Override
@@ -180,15 +155,14 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     }
 
     @Override
-    public void addItem(String ingredient) {
-        userSelections.add(ingredient);
+    public void addItem(Ingredient ingredient) {
+        userSelections.add(ingredient.name);
         Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
-        Log.d("TAG", "uresSelectionList" + userSelections);
     }
 
     @Override
-    public void remove(String ingredient) {
-        userSelections.remove(ingredient);
+    public void removeItem(Ingredient ingredient) {
+        userSelections.remove(ingredient.name);
         Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
     }
 }

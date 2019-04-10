@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+
+    >
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e09c14"
+        android:background="#D32F2F"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,6 +28,7 @@
             android:fontFamily="casual"
             android:gravity="center"
             android:text="Lola's Meal-Prep"
+            android:textColor="#E7F2F8"
             android:textSize="30sp"
             android:textStyle="bold" />
 
@@ -35,19 +38,19 @@
         android:id="@+id/user_question_text_view"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_margin="8dp"
-        android:background="#869184"
+        android:background="#F44336"
         android:fontFamily="casual"
         android:gravity="center_horizontal"
-        android:text="How would you like to input your ingredients?"
-        android:textSize="18sp"
+        android:text="Select how to input your ingredients?"
+        android:textColor="#E7F2F8"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#90ad8a"
+        android:background="#F44336"
         android:minHeight="?attr/actionBarSize" />
 
     <LinearLayout
@@ -58,8 +61,7 @@
         <android.support.v4.view.ViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="8dp">
+            android:layout_height="match_parent">
 
         </android.support.v4.view.ViewPager>
 

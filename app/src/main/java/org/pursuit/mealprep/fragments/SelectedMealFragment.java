@@ -1,8 +1,6 @@
 package org.pursuit.mealprep.fragments;
 
-
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,18 +15,13 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.NutritionFacts;
 import org.pursuit.mealprep.model.Time;
 
-import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectedMealFragment extends Fragment {
-
-//    private static final String MEALS_KEY = "name";
 
     private static final String NAME_KEY = "name";
     private static final String IMAGE_KEY = "image";
@@ -43,8 +36,8 @@ public class SelectedMealFragment extends Fragment {
     private String description;
     private List<String> ingredients;
     private List<String> direction;
-    private List<NutritionFacts> nutritionalFacts;
-    private List<Time> cookTime;
+    private NutritionFacts nutritionalFacts;
+    private Time cookTime;
 
     private TextView nameTextView;
     private ImageView imageImageView;
@@ -55,35 +48,24 @@ public class SelectedMealFragment extends Fragment {
     private TextView cookTimeTextView;
     private Button emailButton;
 
-    private List<Meal> mealList;
-
-    public SelectedMealFragment() {
-        // Required empty public constructor
-    }
+    public SelectedMealFragment() { }
 
     public static SelectedMealFragment newInstance(String name,
                                                    String image,
                                                    String description,
                                                    List<String> ingredients,
-                                                   List<String> direction
-    ) {
-        //add to above
-        // ,List<NutritionFacts> nutritionalFacts,
-        // List<Time> cookTime
-
+                                                   List<String> direction,
+                                                   NutritionFacts nutritionalFacts,
+                                                   Time cookTime) {
         SelectedMealFragment fragment = new SelectedMealFragment();
         Bundle args = new Bundle();
-//        args.putSerializable(MEALS_KEY, (Serializable) meals);
-
         args.putString(NAME_KEY, name);
         args.putString(IMAGE_KEY, image);
         args.putString(DESCRIPTION_KEY, description);
         args.putStringArrayList(INGREDIENTS_KEY, (ArrayList<String>) ingredients);
         args.putStringArrayList(DIRECTION_KEY, (ArrayList<String>) direction);
-//        args.putSerializable(NUTRITIONAL_FACT_KEY, (Serializable) nutritionalFacts);
-//        args.putSerializable(COOK_TIME_KEY, (Serializable) cookTime);
-
-        //List<Meal> meals
+        args.putSerializable(NUTRITIONAL_FACT_KEY, nutritionalFacts);
+        args.putSerializable(COOK_TIME_KEY, cookTime);
         fragment.setArguments(args);
         return fragment;
     }
@@ -91,24 +73,21 @@ public class SelectedMealFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
-//            mealList = (List<Meal>) getArguments().getSerializable(MEALS_KEY);
-
-
             name = getArguments().getString(NAME_KEY);
             image = getArguments().getString(IMAGE_KEY);
             description = getArguments().getString(DESCRIPTION_KEY);
             ingredients = getArguments().getStringArrayList(INGREDIENTS_KEY);
             direction = getArguments().getStringArrayList(DIRECTION_KEY);
-//            nutritionalFacts = (List<NutritionFacts>) getArguments().getSerializable(NUTRITIONAL_FACT_KEY);
-//            cookTime = (List<Time>) getArguments().getSerializable(COOK_TIME_KEY);
+            nutritionalFacts = (NutritionFacts) getArguments().getSerializable(NUTRITIONAL_FACT_KEY);
+            cookTime = (Time) getArguments().getSerializable(COOK_TIME_KEY);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_selected_meal, container, false);
     }
 
@@ -116,6 +95,12 @@ public class SelectedMealFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        findViewsById(view);
+        displayView();
+        emailButtonClick();
+    }
+
+    private void findViewsById(@NonNull View view) {
         nameTextView = view.findViewById(R.id.selected_meal_name_textView);
         imageImageView = view.findViewById(R.id.selected_meal_image_imageView);
         descriptionTextView = view.findViewById(R.id.selected_meal_description_textView);
@@ -124,34 +109,43 @@ public class SelectedMealFragment extends Fragment {
         nutritionalFactsTextView = view.findViewById(R.id.selected_meal_nutritionalFacts_textView);
         cookTimeTextView = view.findViewById(R.id.selected_meal_cookTime_textView);
         emailButton = view.findViewById(R.id.selected_email_button);
+    }
 
-//        String name = mealList.
-//        nameTextView.setText();
-        nameTextView.setText(name);
+    private void displayView() {
         Picasso.get().load(image).into(imageImageView);
+        nameTextView.setText(name);
         descriptionTextView.setText(description);
-        ingredientsTextView.setText(ingredients.toString());
-        directionTextView.setText(direction.toString());
-//        nutritionalFactsTextView.setText(nutritionalFacts);
-//        cookTimeTextView.setText(cookTime);
 
-        emailButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String email = "lolabunny1206@yahoo.com";
-                String subject = "Meal: " + name;
-                String body = name + "/n" + image + "/n" + description + "/n" + ingredients + "/n" + direction;
-                String title = "Lola Meal Prep";
+        for(int i = 0; i < ingredients.size(); i++) {
+            String ingredients = ingredientsTextView.getText()+ this.ingredients.get(i);
+            ingredientsTextView.setText(ingredients);
+        }
+        for(int i = 0; i < direction.size(); i++) {
+            String directions = directionTextView.getText()+ "\n" + direction.get(i);
+            directionTextView.setText(directions);
+        }
 
-                Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                emailIntent.setType("text/plain");
-                emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-                emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
-                emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+        String nutrition = "Calories: "+nutritionalFacts.getCalories()+", \nCarbohydrates: "+nutritionalFacts.getCarbohydrates()+", \nCholesterol: "+nutritionalFacts.getCholesterol()+", \nFat: "+nutritionalFacts.getFat();
+        nutritionalFactsTextView.setText(nutrition);
 
-                startActivity(Intent.createChooser(emailIntent, title));
-            }
+        String cookingTime = "Prep Time: "+cookTime.getPrepTime()+"Cook Time: "+cookTime.getCookTime()+"Total Time: "+cookTime.getTotalTime();
+        cookTimeTextView.setText(cookingTime);
+    }
+
+    private void emailButtonClick() {
+        emailButton.setOnClickListener(v -> {
+            String email = "lolabunny1206@yahoo.com";
+            String subject = "Meal: " + name;
+            String body = name + "/n" + image + "/n" + description + "/n" + ingredients + "/n" + direction;
+            String title = "Lola Meal Prep";
+
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.setType("text/plain");
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
+            emailIntent.putExtra(Intent.EXTRA_TEXT, body);
+
+            startActivity(Intent.createChooser(emailIntent, title));
         });
-
     }
 }
