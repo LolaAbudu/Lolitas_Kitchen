@@ -64,7 +64,7 @@
                 android:id="@+id/selected_meal_ingredients_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/fragment_selected_meal_ingredients_title_textView_marginTop"
                 android:text="@string/fragment_selected_meal_ingredients_title_textView_text"
                 android:textStyle="bold" />
 

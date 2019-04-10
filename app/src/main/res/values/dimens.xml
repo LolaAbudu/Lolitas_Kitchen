@@ -36,4 +36,5 @@
     <dimen name="fragment_type_in_show_recipe_button_textSize">18sp</dimen>
     <dimen name="fragment_view_pager_app_name_textview_textSize">30sp</dimen>
     <dimen name="fragment_view_pager_user_question_textview_textSize">20sp</dimen>
+    <dimen name="fragment_selected_meal_ingredients_title_textView_marginTop">8dp</dimen>
 </resources>
