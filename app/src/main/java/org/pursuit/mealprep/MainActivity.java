@@ -11,7 +11,10 @@ import org.pursuit.mealprep.fragments.SelectedMealFragment;
 import org.pursuit.mealprep.fragments.SplashFragment;
 import org.pursuit.mealprep.fragments.ViewPagerFragment;
 import org.pursuit.mealprep.model.Meal;
+import org.pursuit.mealprep.model.NutritionFacts;
+import org.pursuit.mealprep.model.Time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements FragmentInteractionListener {
@@ -34,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.main_container, viewPagerFragment)
-                .addToBackStack(null)
                 .commit();
     }
 
@@ -54,11 +56,13 @@ public class MainActivity extends AppCompatActivity implements FragmentInteracti
                                        String image,
                                        String description,
                                        List<String> ingredients,
-                                       List<String> direction) {
+                                       List<String> direction,
+                                       NutritionFacts nutritionalFacts,
+                                       Time cookTime) {
         //TODO add to above later
-        // ,ArrayList<NutritionFacts> nutritionalFacts,
-        // ArrayList<Time> cookTime
-        SelectedMealFragment selectedMealFragment = SelectedMealFragment.newInstance(name, image, description, ingredients, direction);
+//         ,ArrayList<NutritionFacts> nutritionalFacts,
+//        ArrayList<Time> cookTime
+        SelectedMealFragment selectedMealFragment = SelectedMealFragment.newInstance(name, image, description, ingredients, direction, nutritionalFacts, cookTime);
         //TODO add late ---, nutritionalFacts, cookTime
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

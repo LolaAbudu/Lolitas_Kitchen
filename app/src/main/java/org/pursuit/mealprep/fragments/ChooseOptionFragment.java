@@ -47,8 +47,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 
     private Button showRecipeButton;
 
-    public ChooseOptionFragment() {
-    }
+    public ChooseOptionFragment() { }
 
     public static ChooseOptionFragment newInstance() {
         ChooseOptionFragment fragment = new ChooseOptionFragment();
@@ -96,7 +95,6 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                             transformingSetOfIngredientsIntoAList();
 
                             ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, uniqueIngredientList);
-                            Log.d("TAG", "onViewCreated: " + ingredients.size());
                             ingredientsRecyclerView.setAdapter(adapter);
 
                         },

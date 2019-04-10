@@ -33,8 +33,7 @@ public class DisplayAllMealsFragment extends Fragment {
     private DisplayAllMealsAdapter adapter;
 
 
-    public DisplayAllMealsFragment() {
-    }
+    public DisplayAllMealsFragment() { }
 
     public static DisplayAllMealsFragment newInstance(List<Meal> meals,
                                                       List<String> userSelection) {

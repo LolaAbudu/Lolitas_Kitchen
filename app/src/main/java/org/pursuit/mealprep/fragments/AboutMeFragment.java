@@ -15,8 +15,7 @@ import org.pursuit.mealprep.R;
 
 public class AboutMeFragment extends Fragment {
 
-    public AboutMeFragment() {
-    }
+    public AboutMeFragment() { }
 
     public static AboutMeFragment newInstance() {
         AboutMeFragment fragment = new AboutMeFragment();

@@ -1,6 +1,5 @@
 package org.pursuit.mealprep.fragments;
 
-
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,8 +20,7 @@ public class SplashFragment extends Fragment {
     private FragmentInteractionListener vpListener;
     private static final int SPLASH_TIME_OUT = 1500;
 
-    public SplashFragment() {
-    }
+    public SplashFragment() { }
 
     public static SplashFragment newInstance() {
         SplashFragment fragment = new SplashFragment();

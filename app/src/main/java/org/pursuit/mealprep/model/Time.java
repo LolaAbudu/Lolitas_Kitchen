@@ -1,6 +1,8 @@
 package org.pursuit.mealprep.model;
 
-public class Time {
+import java.io.Serializable;
+
+public class Time implements Serializable {
     private String prepTime;
     private String cookTime;
     private String totalTime;

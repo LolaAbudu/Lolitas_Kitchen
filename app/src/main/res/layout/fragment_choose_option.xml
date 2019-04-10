@@ -1,36 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.ChooseOptionFragment"
-    android:orientation="vertical">
+    android:paddingBottom="8dp">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ingredients_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_gravity="center"
-        tools:listitem="@layout/choose_option_itemview"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/show_recipe_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/show_recipe_button"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        />
 
     <Button
         android:id="@+id/show_recipe_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#d8940d"
+        android:background="#FFA384"
+        android:fontFamily="casual"
+        android:gravity="center"
         android:text="Show Recipes"
-        android:gravity="top"
+        android:textColor="#E7F2F8"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:fontFamily="casual"
-        app:layout_constraintTop_toBottomOf="@id/ingredients_recycler_view"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ingredients_recycler_view" />
 
 </android.support.constraint.ConstraintLayout>
+<!--#f2e5cb-->

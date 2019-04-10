@@ -6,33 +6,34 @@
     android:orientation="vertical"
     tools:context=".fragments.TypeInFragment">
 
-    <!--<android.support.v7.widget.SearchView-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:text="Type In"-->
-    <!--android:textSize="30sp"-->
-    <!--android:gravity="center_horizontal"-->
-    <!--android:layout_centerInParent="true"/>-->
-
     <EditText
         android:id="@+id/type_in_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Ingredients" >
+        android:hint="Enter Ingredients"
+        android:layout_margin="8dp">
 
-        <requestFocus/>
+        <requestFocus />
     </EditText>
 
     <Button
         android:id="@+id/type_in_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add" />
+        android:text="Add"
+        android:textColor="#E7F2F8"
+        android:background="#FFA384"
+        android:fontFamily="casual"
+        android:gravity="center"
+        android:layout_marginStart="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
 
     <ListView
         android:id="@+id/type_in_ingredients_listview"
         android:layout_width="match_parent"
-        android:layout_height="300dp">
+        android:layout_height="300dp"
+        android:layout_margin="8dp">
 
     </ListView>
 
@@ -40,12 +41,15 @@
         android:id="@+id/type_in_show_recipe_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#d8940d"
+        android:layout_gravity="center"
+        android:background="#FFA384"
         android:fontFamily="casual"
         android:gravity="center"
-        android:layout_gravity="center"
         android:text="Show Recipes"
+        android:textColor="#E7F2F8"
         android:textSize="18sp"
         android:textStyle="bold" />
 
 </LinearLayout>
+
+    <!--#f2e5cb-->

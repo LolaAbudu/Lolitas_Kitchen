@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import org.pursuit.mealprep.R;
-import org.pursuit.mealprep.model.Meal;
 import org.pursuit.mealprep.model.NutritionFacts;
 import org.pursuit.mealprep.model.Time;
 
@@ -37,8 +36,8 @@ public class SelectedMealFragment extends Fragment {
     private String description;
     private List<String> ingredients;
     private List<String> direction;
-    private List<NutritionFacts> nutritionalFacts;
-    private List<Time> cookTime;
+    private NutritionFacts nutritionalFacts;
+    private Time cookTime;
 
     private TextView nameTextView;
     private ImageView imageImageView;
@@ -49,17 +48,15 @@ public class SelectedMealFragment extends Fragment {
     private TextView cookTimeTextView;
     private Button emailButton;
 
-    private List<Meal> mealList;
-
-    public SelectedMealFragment() {
-        // Required empty public constructor
-    }
+    public SelectedMealFragment() { }
 
     public static SelectedMealFragment newInstance(String name,
                                                    String image,
                                                    String description,
                                                    List<String> ingredients,
-                                                   List<String> direction) {
+                                                   List<String> direction,
+                                                   NutritionFacts nutritionalFacts,
+                                                   Time cookTime) {
         SelectedMealFragment fragment = new SelectedMealFragment();
         Bundle args = new Bundle();
         args.putString(NAME_KEY, name);
@@ -67,6 +64,8 @@ public class SelectedMealFragment extends Fragment {
         args.putString(DESCRIPTION_KEY, description);
         args.putStringArrayList(INGREDIENTS_KEY, (ArrayList<String>) ingredients);
         args.putStringArrayList(DIRECTION_KEY, (ArrayList<String>) direction);
+        args.putSerializable(NUTRITIONAL_FACT_KEY, nutritionalFacts);
+        args.putSerializable(COOK_TIME_KEY, cookTime);
         fragment.setArguments(args);
         return fragment;
     }
@@ -81,8 +80,8 @@ public class SelectedMealFragment extends Fragment {
             description = getArguments().getString(DESCRIPTION_KEY);
             ingredients = getArguments().getStringArrayList(INGREDIENTS_KEY);
             direction = getArguments().getStringArrayList(DIRECTION_KEY);
-//            nutritionalFacts = (List<NutritionFacts>) getArguments().getSerializable(NUTRITIONAL_FACT_KEY);
-//            cookTime = (List<Time>) getArguments().getSerializable(COOK_TIME_KEY);
+            nutritionalFacts = (NutritionFacts) getArguments().getSerializable(NUTRITIONAL_FACT_KEY);
+            cookTime = (Time) getArguments().getSerializable(COOK_TIME_KEY);
         }
     }
 
@@ -96,6 +95,12 @@ public class SelectedMealFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        findViewsById(view);
+        displayView();
+        emailButtonClick();
+    }
+
+    private void findViewsById(@NonNull View view) {
         nameTextView = view.findViewById(R.id.selected_meal_name_textView);
         imageImageView = view.findViewById(R.id.selected_meal_image_imageView);
         descriptionTextView = view.findViewById(R.id.selected_meal_description_textView);
@@ -104,15 +109,30 @@ public class SelectedMealFragment extends Fragment {
         nutritionalFactsTextView = view.findViewById(R.id.selected_meal_nutritionalFacts_textView);
         cookTimeTextView = view.findViewById(R.id.selected_meal_cookTime_textView);
         emailButton = view.findViewById(R.id.selected_email_button);
+    }
 
-        nameTextView.setText(name);
+    private void displayView() {
         Picasso.get().load(image).into(imageImageView);
+        nameTextView.setText(name);
         descriptionTextView.setText(description);
-        ingredientsTextView.setText(ingredients.toString());
-        directionTextView.setText(direction.toString());
-//        nutritionalFactsTextView.setText(nutritionalFacts);
-//        cookTimeTextView.setText(cookTime);
 
+        for(int i = 0; i < ingredients.size(); i++) {
+            String ingredients = ingredientsTextView.getText()+ this.ingredients.get(i);
+            ingredientsTextView.setText(ingredients);
+        }
+        for(int i = 0; i < direction.size(); i++) {
+            String directions = directionTextView.getText()+ "\n" + direction.get(i);
+            directionTextView.setText(directions);
+        }
+
+        String nutrition = "Calories: "+nutritionalFacts.getCalories()+", \nCarbohydrates: "+nutritionalFacts.getCarbohydrates()+", \nCholesterol: "+nutritionalFacts.getCholesterol()+", \nFat: "+nutritionalFacts.getFat();
+        nutritionalFactsTextView.setText(nutrition);
+
+        String cookingTime = "Prep Time: "+cookTime.getPrepTime()+"Cook Time: "+cookTime.getCookTime()+"Total Time: "+cookTime.getTotalTime();
+        cookTimeTextView.setText(cookingTime);
+    }
+
+    private void emailButtonClick() {
         emailButton.setOnClickListener(v -> {
             String email = "lolabunny1206@yahoo.com";
             String subject = "Meal: " + name;

@@ -1,6 +1,8 @@
 package org.pursuit.mealprep.model;
 
-public class NutritionFacts {
+import java.io.Serializable;
+
+public class NutritionFacts implements Serializable {
     private String fat;
     private String calories;
     private String cholesterol;

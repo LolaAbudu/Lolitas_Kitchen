@@ -36,7 +36,9 @@ public class DisplayAllMealsViewHolder extends RecyclerView.ViewHolder {
                     meal.getImage(),
                     meal.getDescription(),
                     meal.getIngredients(),
-                    meal.getDirections()
+                    meal.getDirections(),
+                    meal.getNutritionFacts(),
+                    meal.getTime()
             );
         });
     }

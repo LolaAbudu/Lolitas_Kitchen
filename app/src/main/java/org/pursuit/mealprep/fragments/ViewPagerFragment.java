@@ -20,19 +20,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import org.jetbrains.annotations.NotNull;
 import org.pursuit.mealprep.R;
 import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.controller.ViewPagerAdapter;
 
+import java.util.Objects;
+
 public class ViewPagerFragment extends Fragment {
 
-    private Toolbar toolBar;
     private FragmentInteractionListener vpListener;
 
-
-    public ViewPagerFragment() {
-    }
-
+    public ViewPagerFragment() { }
 
     public static ViewPagerFragment newInstance() {
         ViewPagerFragment fragment = new ViewPagerFragment();
@@ -47,13 +46,13 @@ public class ViewPagerFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_view_pager, container, false);
-        toolBar = view.findViewById(R.id.toolbar);
+        Toolbar toolBar = view.findViewById(R.id.toolbar);
 
         if (toolBar != null) {
-            ((AppCompatActivity) getActivity()).setSupportActionBar(toolBar);
+            ((AppCompatActivity) Objects.requireNonNull(getActivity())).setSupportActionBar(toolBar);
         }
         this.setHasOptionsMenu(true);
         return view;
