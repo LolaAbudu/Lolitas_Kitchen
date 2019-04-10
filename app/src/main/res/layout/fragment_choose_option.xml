@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.ChooseOptionFragment"
-    android:paddingBottom="8dp">
+    android:paddingBottom="@dimen/fragment_choose_option_paddingBottom"
+    tools:context=".fragments.ChooseOptionFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ingredients_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/fragment_choose_option_rv_height"
         android:layout_gravity="center"
         app:layout_constraintBottom_toTopOf="@id/show_recipe_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/show_recipe_button"
@@ -25,9 +24,9 @@
         android:background="#FFA384"
         android:fontFamily="casual"
         android:gravity="center"
-        android:text="Show Recipes"
+        android:text="@string/fragment_choose_option_show_recipe_button_text"
         android:textColor="#E7F2F8"
-        android:textSize="18sp"
+        android:textSize="@dimen/fragment_choose_option_show_recipe_button_textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,4 +34,4 @@
         app:layout_constraintTop_toBottomOf="@id/ingredients_recycler_view" />
 
 </android.support.constraint.ConstraintLayout>
-<!--#f2e5cb-->
+    <!--#f2e5cb-->

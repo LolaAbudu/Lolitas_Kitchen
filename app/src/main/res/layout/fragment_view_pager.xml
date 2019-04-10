@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity"
-
-    >
+    tools:context=".MainActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -27,9 +25,9 @@
             android:layout_height="match_parent"
             android:fontFamily="casual"
             android:gravity="center"
-            android:text="Lola's Meal-Prep"
+            android:text="@string/fragment_view_pager_app_name_textview_text"
             android:textColor="#E7F2F8"
-            android:textSize="30sp"
+            android:textSize="@dimen/fragment_view_pager_app_name_textview_textSize"
             android:textStyle="bold" />
 
     </android.support.v7.widget.Toolbar>
@@ -41,9 +39,9 @@
         android:background="#F44336"
         android:fontFamily="casual"
         android:gravity="center_horizontal"
-        android:text="Select how to input your ingredients?"
+        android:text="@string/fragment_view_pager_user_question_textview_text"
         android:textColor="#E7F2F8"
-        android:textSize="20sp"
+        android:textSize="@dimen/fragment_view_pager_user_question_textview_textSize"
         android:textStyle="bold" />
 
     <android.support.design.widget.TabLayout

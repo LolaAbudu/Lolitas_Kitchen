@@ -10,8 +10,8 @@
         android:id="@+id/type_in_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Ingredients"
-        android:layout_margin="8dp">
+        android:layout_margin="@dimen/fragment_type_in_editText_layout_margin"
+        android:hint="@string/fragment_type_in_editText_hint">
 
         <requestFocus />
     </EditText>
@@ -20,20 +20,20 @@
         android:id="@+id/type_in_add_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add"
-        android:textColor="#E7F2F8"
+        android:layout_marginStart="@dimen/fragment_type_in_add_button_layout_marginStart"
         android:background="#FFA384"
         android:fontFamily="casual"
         android:gravity="center"
-        android:layout_marginStart="8dp"
-        android:textSize="18sp"
-        android:textStyle="bold"/>
+        android:text="@string/fragment_type_in_add_button_text"
+        android:textColor="#E7F2F8"
+        android:textSize="@dimen/fragment_type_in_add_button_textSize"
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/type_in_ingredients_listview"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_margin="8dp">
+        android:layout_height="@dimen/fragment_type_in_listview_layout_height"
+        android:layout_margin="@dimen/fragment_type_in_listview_layout_margin">
 
     </ListView>
 
@@ -45,9 +45,9 @@
         android:background="#FFA384"
         android:fontFamily="casual"
         android:gravity="center"
-        android:text="Show Recipes"
+        android:text="@string/fragment_type_in_show_recipe_button_text"
         android:textColor="#E7F2F8"
-        android:textSize="18sp"
+        android:textSize="@dimen/fragment_type_in_show_recipe_button_textSize"
         android:textStyle="bold" />
 
 </LinearLayout>
