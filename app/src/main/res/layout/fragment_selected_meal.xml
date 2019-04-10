@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f2e5cb"
-    android:paddingTop="16dp"
+    android:paddingTop="@dimen/fragment_selected_meal_paddingTop"
     tools:context=".fragments.SelectedMealFragment">
 
     <ImageView
         android:id="@+id/selected_meal_image_imageView"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="@dimen/fragment_selected_meal_imageView_height"
         android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/selected_meal_name_textView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -22,11 +22,11 @@
         android:id="@+id/selected_meal_name_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="@dimen/fragment_selected_meal_mealName_marginTop"
+        android:layout_marginBottom="@dimen/fragment_selected_meal_mealName_marginBottom"
         android:background="#edce93"
         android:gravity="center"
-        android:textSize="24sp"
+        android:textSize="@dimen/fragment_selected_meal_mealName_textSize"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/selected_meal_scrollView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,12 +36,12 @@
     <ScrollView
         android:id="@+id/selected_meal_scrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="@dimen/fragment_selected_meal_scrollView_height"
+        android:layout_marginBottom="@dimen/fragment_selected_meal_scrollView_layout_marginBottom"
         android:clipToPadding="false"
         android:fillViewport="true"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
+        android:paddingStart="@dimen/fragment_selected_meal_scrollView_paddingLeft"
+        android:paddingEnd="@dimen/fragment_selected_meal_scrollView_paddingRight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,7 +49,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:textSize="16sp"
+                android:textSize="@dimen/fragment_selected_meal_description_textView_textSize"
                 android:textStyle="italic" />
 
             <TextView
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="INGREDIENTS: "
+                android:text="@string/fragment_selected_meal_ingredients_title_textView_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -77,8 +77,8 @@
                 android:id="@+id/selected_meal_direction_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="DIRECTIONS: "
+                android:layout_marginTop="@dimen/fragment_selected_meal_directions_title_textView_layout_marginTop"
+                android:text="@string/fragment_selected_meal_directions_title_textView_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -90,8 +90,8 @@
                 android:id="@+id/selected_meal_nutritionalFacts_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="NUTRITIONAL FACTS: "
+                android:layout_marginTop="@dimen/fragment_selected_meal_nutritional_facts_textView_layout_marginTop"
+                android:text="@string/fragment_selected_meal_nutritional_facts_title_textView_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -103,8 +103,8 @@
                 android:id="@+id/selected_meal_cookTime_title_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="COOK TIME: "
+                android:layout_marginTop="@dimen/fragment_selected_meal_cookTime_layout_marginTop"
+                android:text="@string/fragment_selected_meal_cook_time_title_textView_text"
                 android:textStyle="bold" />
 
             <TextView
@@ -117,13 +117,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="@dimen/fragment_selected_meal_email_button_marginBottom"
                 android:background="#FFA384"
                 android:fontFamily="casual"
                 android:gravity="center"
-                android:text="Email"
+                android:text="@string/fragment_selected_meal_email_button_text"
                 android:textColor="#E7F2F8"
-                android:textSize="18sp"
+                android:textSize="@dimen/fragment_selected_meal_email_button_textSize"
                 android:textStyle="bold" />
 
         </LinearLayout>

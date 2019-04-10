@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-   >
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/about_me"
-        android:title="About Me" />
+        android:title="@string/projects_menu_about_me_title" />
 
     <item
         android:id="@+id/main_github"
-        android:title="GitHub" />
+        android:title="@string/projects_menu_github" />
 
     <item
         android:id="@+id/meal_prep_github"
-        android:title="Lola's Meal Prep" />
+        android:title="@string/projects_menu_lola_meal_prep_title" />
 
     <item
         android:id="@+id/linkedIn"
-        android:title="LinkedIn" />
+        android:title="@string/projects_menu_linkedin_title" />
 
 </menu>
