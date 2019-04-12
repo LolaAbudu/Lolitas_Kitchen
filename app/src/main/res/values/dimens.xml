@@ -2,19 +2,19 @@
 <resources>
     <dimen name="choose_option_itemview_checkedTextView_padding">15dp</dimen>
     <dimen name="choose_option_itemview_layout_marginTop">16dp</dimen>
-    <dimen name="display_all_meal_itemview_cardview_layout_margin">32dp</dimen>
+    <dimen name="display_all_meal_itemview_cardview_layout_margin">8dp</dimen>
     <dimen name="display_all_meal_itemview_cardview_cardCornerRadius">16dp</dimen>
     <dimen name="display_all_meal_itemview_cardview_cardElevation">16dp</dimen>
     <dimen name="display_all_meal_itemview_mealName_textView_textSize">24sp</dimen>
     <dimen name="display_all_meal_itemview_mealImage_height">250dp</dimen>
-    <dimen name="fragment_about_me_cardview_layout_margin">8dp</dimen>
+    <dimen name="fragment_about_me_cardview_layout_margin">4dp</dimen>
     <dimen name="fragment_about_me_textSize_linkedIn">16sp</dimen>
     <dimen name="fragment_about_me_textSize_gitHub">16sp</dimen>
     <dimen name="fragment_choose_option_rv_height">0dp</dimen>
     <dimen name="fragment_choose_option_paddingBottom">8dp</dimen>
     <dimen name="fragment_choose_option_show_recipe_button_textSize">18sp</dimen>
-    <dimen name="fragment_selected_meal_paddingTop">16dp</dimen>
-    <dimen name="fragment_selected_meal_imageView_height">250dp</dimen>
+    <dimen name="fragment_selected_meal_paddingTop">8dp</dimen>
+    <dimen name="fragment_selected_meal_imageView_height">300dp</dimen>
     <dimen name="fragment_selected_meal_mealName_marginTop">8dp</dimen>
     <dimen name="fragment_selected_meal_mealName_marginBottom">8dp</dimen>
     <dimen name="fragment_selected_meal_mealName_textSize">24sp</dimen>
@@ -28,13 +28,13 @@
     <dimen name="fragment_selected_meal_cookTime_layout_marginTop">8dp</dimen>
     <dimen name="fragment_selected_meal_email_button_marginBottom">8dp</dimen>
     <dimen name="fragment_selected_meal_email_button_textSize">18sp</dimen>
+    <dimen name="fragment_selected_meal_ingredients_title_textView_marginTop">16dp</dimen>
     <dimen name="fragment_type_in_editText_layout_margin">8dp</dimen>
     <dimen name="fragment_type_in_add_button_textSize">18sp</dimen>
     <dimen name="fragment_type_in_add_button_layout_marginStart">8dp</dimen>
-    <dimen name="fragment_type_in_listview_layout_height">300dp</dimen>
+    <dimen name="fragment_type_in_listview_layout_height">370dp</dimen>
     <dimen name="fragment_type_in_listview_layout_margin">8dp</dimen>
     <dimen name="fragment_type_in_show_recipe_button_textSize">18sp</dimen>
     <dimen name="fragment_view_pager_app_name_textview_textSize">30sp</dimen>
     <dimen name="fragment_view_pager_user_question_textview_textSize">20sp</dimen>
-    <dimen name="fragment_selected_meal_ingredients_title_textView_marginTop">8dp</dimen>
 </resources>

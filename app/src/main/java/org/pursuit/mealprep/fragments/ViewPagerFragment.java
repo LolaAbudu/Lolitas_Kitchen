@@ -121,14 +121,9 @@ public class ViewPagerFragment extends Fragment {
             vpListener.toAboutMe();
         } else if (id == R.id.main_github) {
             Intent mainGitHub = new Intent(Intent.ACTION_VIEW);
-            mainGitHub.setData(Uri.parse("https://github.com/LolaAbudu?tab=repositories"));
+            mainGitHub.setData(Uri.parse("https://github.com/LolaAbudu/Meal_Prep"));
             startActivity(mainGitHub);
             Toast.makeText(getContext(), "Lola's GitHub Account", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.meal_prep_github) {
-            Intent mealPrepGitHub = new Intent(Intent.ACTION_VIEW);
-            mealPrepGitHub.setData(Uri.parse("https://github.com/LolaAbudu/Meal_Prep"));
-            startActivity(mealPrepGitHub);
-            Toast.makeText(getContext(), "Meal-Prep-GitHub", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.linkedIn) {
             Intent linkedIn = new Intent(Intent.ACTION_VIEW);
             linkedIn.setData(Uri.parse("https://www.linkedin.com/in/omolola-abudu/"));

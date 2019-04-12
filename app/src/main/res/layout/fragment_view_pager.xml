@@ -11,45 +11,31 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#D32F2F"
+        android:background="#dd8502"
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/ThemeOverlay.AppCompat.Light"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/user_question_text_view">
+        app:layout_constraintRight_toRightOf="parent">
 
         <TextView
             android:id="@+id/app_name_text_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="casual"
             android:gravity="center"
             android:text="@string/fragment_view_pager_app_name_textview_text"
             android:textColor="#E7F2F8"
-            android:textSize="@dimen/fragment_view_pager_app_name_textview_textSize"
-            android:textStyle="bold" />
+            android:textSize="@dimen/fragment_view_pager_app_name_textview_textSize" />
 
     </android.support.v7.widget.Toolbar>
-
-    <TextView
-        android:id="@+id/user_question_text_view"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="#F44336"
-        android:fontFamily="casual"
-        android:gravity="center_horizontal"
-        android:text="@string/fragment_view_pager_user_question_textview_text"
-        android:textColor="#E7F2F8"
-        android:textSize="@dimen/fragment_view_pager_user_question_textview_textSize"
-        android:textStyle="bold" />
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F44336"
-        android:minHeight="?attr/actionBarSize" />
+        android:background="#e28604"
+        android:minHeight="?attr/actionBarSize"
+        app:tabTextColor="#E7F2F8" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -66,3 +52,5 @@
     </LinearLayout>
 
 </LinearLayout>
+
+    <!--#f2e5cb--><!--#edce93-->

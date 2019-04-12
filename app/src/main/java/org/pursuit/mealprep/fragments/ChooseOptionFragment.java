@@ -94,6 +94,7 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 
                             transformingSetOfIngredientsIntoAList();
 
+                            Log.d("TAG", "onResponse" + meals.get(0));
                             ChooseOptionAdapter adapter = new ChooseOptionAdapter(this, uniqueIngredientList);
                             ingredientsRecyclerView.setAdapter(adapter);
 
