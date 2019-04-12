@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ff844c</color>
-    <color name="colorPrimaryDark">#a66300</color>
-    <color name="colorAccent">#827717</color>
+    <color name="colorPrimaryDark">#129983</color>
+    <color name="colorAccent">#00110e</color>
     <color name="orange">#f4511e</color>
     <color name="green">#827717</color>
+    <color name="fragment_about_me_cardview_textview_textColor">#110900</color>
+    <color name="fragment_about_me_linkedIn_textview_textColor">#2e48b2</color>
+    <color name="fragment_about_me_github_textview_textColor">#2e48b2</color>
+    <color name="display_all_meal_itemview_cardview_outlineShadowColor">#827717</color>
+    <color name="display_all_meal_itemview_name_textview_background">#B7AC44</color>
+    <color name="display_all_meal_itemview_name_textview_textColor">#f7e9d4</color>
+    <color name="fragment_selected_meal_name_textview_background">#B7AC44</color>
+    <color name="fragment_selected_meal_scrollview_background">#f2e5cb</color>
+    <color name="fragment_selected_meal_share_button_textColor">#E7F2F8</color>
+    <color name="fragment_splash_kitchen_background">#f9fafc</color>
+    <color name="fragment_splash_kitchen_textColor">#444547</color>
+    <color name="fragment_splash_lolita_background">#f9fafc</color>
+    <color name="fragment_splash_lolita_textview_textColor">#444547</color>
+    <color name="fragment_type_in_add_button_textColor">#E7F2F8</color>
+    <color name="fragment_type_in_show_recipe_button_textColor">#E7F2F8</color>
+    <color name="fragment_view_pager_toolbar_background">#16aa92</color>
+    <color name="fragment_view_pager_name_textview_textColor">#E7F2F8</color>
+    <color name="fragment_view_pager_tablayout_background">#16aa92</color>
+    <color name="fragment_view_pager_tablayout_tabTextColor">#E7F2F8</color>
+    <color name="fragment_choose_option_show_recipe_button_textColor">#E7F2F8</color>
 </resources>
 
     <!--#edce93-->
+
+    <!--a66300 &#45;&#45;orange-->
+
+    <!--827717 darkgreen-->

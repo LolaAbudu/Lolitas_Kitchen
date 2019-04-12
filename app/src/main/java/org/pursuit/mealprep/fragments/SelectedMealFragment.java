@@ -108,7 +108,7 @@ public class SelectedMealFragment extends Fragment {
         directionTextView = view.findViewById(R.id.selected_meal_direction_textView);
         nutritionalFactsTextView = view.findViewById(R.id.selected_meal_nutritionalFacts_textView);
         cookTimeTextView = view.findViewById(R.id.selected_meal_cookTime_textView);
-        emailButton = view.findViewById(R.id.selected_email_button);
+        emailButton = view.findViewById(R.id.selected_share_button);
     }
 
     private void displayView() {

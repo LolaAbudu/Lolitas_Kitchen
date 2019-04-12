@@ -24,15 +24,14 @@
         android:background="@drawable/buttons"
         android:fontFamily="casual"
         android:gravity="center"
+        android:padding="8dp"
         android:text="@string/fragment_choose_option_show_recipe_button_text"
+        android:textColor="@color/fragment_choose_option_show_recipe_button_textColor"
         android:textSize="@dimen/fragment_choose_option_show_recipe_button_textSize"
         android:textStyle="bold"
-        android:textColor="#E7F2F8"
-        android:padding="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ingredients_recycler_view" />
 
 </android.support.constraint.ConstraintLayout>
-    <!--#f2e5cb-->

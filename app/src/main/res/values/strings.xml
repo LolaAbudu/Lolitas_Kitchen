@@ -11,7 +11,7 @@
     <string name="fragment_selected_meal_directions_title_textView_text">DIRECTIONS:</string>
     <string name="fragment_selected_meal_nutritional_facts_title_textView_text">NUTRITIONAL FACTS:</string>
     <string name="fragment_selected_meal_cook_time_title_textView_text">COOK TIME:</string>
-    <string name="fragment_selected_meal_email_button_text">Share</string>
+    <string name="fragment_selected_meal_share_button_text">Share</string>
     <string name="fragment_type_in_editText_hint">Enter Ingredients</string>
     <string name="fragment_type_in_add_button_text">Add</string>
     <string name="fragment_type_in_show_recipe_button_text">Show Recipes</string>
@@ -21,4 +21,6 @@
     <string name="projects_menu_github">GitHub</string>
     <string name="projects_menu_lola_meal_prep_title">Lolita\'s Kitchen</string>
     <string name="projects_menu_linkedin_title">LinkedIn</string>
+    <string name="fragment_splash_kitchen_textview_text">Kitchen</string>
+    <string name="fragment_splash_lolita_textview_text">Lolita\'s</string>
 </resources>

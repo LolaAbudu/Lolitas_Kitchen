@@ -47,7 +47,8 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
 
     private Button showRecipeButton;
 
-    public ChooseOptionFragment() { }
+    public ChooseOptionFragment() {
+    }
 
     public static ChooseOptionFragment newInstance() {
         ChooseOptionFragment fragment = new ChooseOptionFragment();

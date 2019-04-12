@@ -25,7 +25,7 @@
         android:fontFamily="casual"
         android:gravity="center"
         android:text="@string/fragment_type_in_add_button_text"
-        android:textColor="#E7F2F8"
+        android:textColor="@color/fragment_type_in_add_button_textColor"
         android:textSize="@dimen/fragment_type_in_add_button_textSize"
         android:textStyle="bold" />
 
@@ -45,14 +45,10 @@
         android:background="@drawable/buttons"
         android:fontFamily="casual"
         android:gravity="center"
+        android:padding="@dimen/fragment_type_in_show_recipe_button_padding"
         android:text="@string/fragment_type_in_show_recipe_button_text"
+        android:textColor="@color/fragment_type_in_show_recipe_button_textColor"
         android:textSize="@dimen/fragment_type_in_show_recipe_button_textSize"
-        android:textStyle="bold"
-        android:padding="8dp"
-        android:textColor="#E7F2F8"/>
+        android:textStyle="bold" />
 
 </LinearLayout>
-
-    <!--#f2e5cb-->
-    <!--#edce93-->
-    <!--button #827717-->
