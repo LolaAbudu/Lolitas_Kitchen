@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
+    android:background="@drawable/ingredients"
     android:orientation="vertical"
     tools:context=".fragments.AboutMeFragment">
 
@@ -13,25 +14,27 @@
         android:id="@+id/about_me_imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:contentDescription="@string/fragment_about_me_imageView_contentDescription"
-        android:src="@drawable/lola_pic"
         android:layout_gravity="center"
-        android:layout_margin="16dp"/>
+        android:layout_margin="@dimen/fragment_about_me_imageview_layout_margin"
+        android:contentDescription="@string/fragment_about_me_imageView_contentDescription"
+        android:src="@drawable/lola_pic" />
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/fragment_about_me_cardview_layout_margin"
-        app:cardBackgroundColor="#dd8502">
+        android:alpha="0.7"
+        app:cardBackgroundColor="#edb06d">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:gravity="left"
+            android:gravity="start"
             android:text="@string/about_me_textview_text"
-            android:textColor="#f4f2ef"/>
+            android:textColor="@color/fragment_about_me_cardview_textview_textColor" />
+
     </android.support.v7.widget.CardView>
 
     <TextView
@@ -44,7 +47,7 @@
         android:focusable="true"
         android:linksClickable="true"
         android:text="@string/fragment_about_me_textView_text_linkedIn"
-        android:textColor="#2e48b2"
+        android:textColor="@color/fragment_about_me_linkedIn_textview_textColor"
         android:textSize="@dimen/fragment_about_me_textSize_linkedIn" />
 
     <TextView
@@ -57,7 +60,7 @@
         android:focusable="true"
         android:linksClickable="true"
         android:text="@string/fragment_about_me_textView_text_gitHub"
-        android:textColor="#2e48b2"
+        android:textColor="@color/fragment_about_me_github_textview_textColor"
         android:textSize="@dimen/fragment_about_me_textSize_gitHub" />
 
 </LinearLayout>
