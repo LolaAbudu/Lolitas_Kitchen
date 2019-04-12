@@ -125,10 +125,9 @@ public class SelectedMealFragment extends Fragment {
             directionTextView.setText(directions);
         }
 
-        String nutrition = "Calories: "+nutritionalFacts.getCalories()+", \nCarbohydrates: "+nutritionalFacts.getCarbohydrates()+", \nCholesterol: "+nutritionalFacts.getCholesterol()+", \nFat: "+nutritionalFacts.getFat();
+        String nutrition = "Fat: "+nutritionalFacts.getFat() + " \nCalories: " + nutritionalFacts.getCalories() + ", \nCarbohydrates: " + nutritionalFacts.getCarbohydrates()+", \nCholesterol: " + nutritionalFacts.getCholesterol();
         nutritionalFactsTextView.setText(nutrition);
-
-        String cookingTime = "Prep Time: "+cookTime.getPrepTime()+"Cook Time: "+cookTime.getCookTime()+"Total Time: "+cookTime.getTotalTime();
+        String cookingTime = "Prep Time: " + cookTime.getPrepTime() + "Cook Time: " + cookTime.getCookTime() + "Total Time: " + cookTime.getTotalTime();
         cookTimeTextView.setText(cookingTime);
     }
 

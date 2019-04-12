@@ -10,10 +10,6 @@
         android:title="@string/projects_menu_github" />
 
     <item
-        android:id="@+id/meal_prep_github"
-        android:title="@string/projects_menu_lola_meal_prep_title" />
-
-    <item
         android:id="@+id/linkedIn"
         android:title="@string/projects_menu_linkedin_title" />
 
