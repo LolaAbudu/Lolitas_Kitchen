@@ -33,7 +33,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#e28604"
+        android:background="#dd8502"
         android:minHeight="?attr/actionBarSize"
         app:tabTextColor="#E7F2F8" />
 

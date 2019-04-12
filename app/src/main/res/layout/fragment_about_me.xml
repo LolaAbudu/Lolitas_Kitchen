@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/fragment_about_me_cardview_layout_margin"
-        app:cardBackgroundColor="#a66300">
+        app:cardBackgroundColor="#dd8502">
 
         <TextView
             android:layout_width="match_parent"
