@@ -6,15 +6,12 @@
     android:orientation="vertical"
     tools:context=".fragments.TypeInFragment">
 
-    <EditText
-        android:id="@+id/type_in_edit_text"
+    <AutoCompleteTextView
+        android:id="@+id/suggestion_box"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fragment_type_in_editText_layout_margin"
-        android:hint="@string/fragment_type_in_editText_hint">
-
-        <requestFocus />
-    </EditText>
+        android:completionThreshold="1"
+        android:hint="@string/fragment_type_in_auto_complete_textview_hint" />
 
     <Button
         android:id="@+id/type_in_add_button"

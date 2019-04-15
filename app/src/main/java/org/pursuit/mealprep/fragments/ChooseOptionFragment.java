@@ -159,12 +159,12 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     @Override
     public void addItem(Ingredient ingredient) {
         userSelections.add(ingredient.name);
-        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void removeItem(Ingredient ingredient) {
         userSelections.remove(ingredient.name);
-        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
     }
 }
