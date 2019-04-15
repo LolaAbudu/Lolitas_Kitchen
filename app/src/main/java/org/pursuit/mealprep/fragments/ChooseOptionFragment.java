@@ -76,6 +76,11 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
         ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
         showRecipeButton = view.findViewById(R.id.show_recipe_button);
 
+        retrofitCall();
+        sendingUserToDisplayAllMealFragment();
+    }
+
+    private void retrofitCall() {
         Retrofit retrofit = RetrofitSingleton.getInstance();
         MealServices mealServices = retrofit.create(MealServices.class);
         Single<MealList> mealCall = mealServices.getMealList();
@@ -102,28 +107,6 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
-        sendingUserToDisplayAllMealFragment();
-    }
-
-    private void transformingSetOfIngredientsIntoAList() {
-        uniqueIngredientList = new ArrayList<>();
-        for (String name : ingredients) {
-            uniqueIngredientList.add(new Ingredient(name));
-        }
-    }
-
-    private void sendingUserToDisplayAllMealFragment() {
-        showRecipeButton.setOnClickListener(v -> {
-            if (vpListener != null) {
-                vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
-            }
-        });
-    }
-
-    public void addsAllUniqueIngredients(List<Meal> meals) {
-        for (Meal meal1 : meals) {
-            ingredients.addAll(meal1.getKeywords());
-        }
     }
 
     @Override
@@ -159,12 +142,31 @@ public class ChooseOptionFragment extends Fragment implements IngredientSelected
     @Override
     public void addItem(Ingredient ingredient) {
         userSelections.add(ingredient.name);
-//        Toast.makeText(getContext(), ingredient + " has been selected", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void removeItem(Ingredient ingredient) {
         userSelections.remove(ingredient.name);
-//        Toast.makeText(getContext(), ingredient + " has been un-selected", Toast.LENGTH_SHORT).show();
+    }
+
+    private void transformingSetOfIngredientsIntoAList() {
+        uniqueIngredientList = new ArrayList<>();
+        for (String name : ingredients) {
+            uniqueIngredientList.add(new Ingredient(name));
+        }
+    }
+
+    private void sendingUserToDisplayAllMealFragment() {
+        showRecipeButton.setOnClickListener(v -> {
+            if (vpListener != null) {
+                vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
+            }
+        });
+    }
+
+    public void addsAllUniqueIngredients(List<Meal> meals) {
+        for (Meal meal1 : meals) {
+            ingredients.addAll(meal1.getKeywords());
+        }
     }
 }

@@ -81,7 +81,6 @@ public class TypeInFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_type_in, container, false);
     }
 
@@ -94,6 +93,13 @@ public class TypeInFragment extends Fragment {
         userSelectionsListView = view.findViewById(R.id.type_in_ingredients_listview);
         ingredients_suggestion_box = view.findViewById(R.id.suggestion_box);
 
+        retrofitCall();
+
+        addButtonOnClickEvent(addButton);
+        sendingUserToDisplayAllMealFragment();
+    }
+
+    private void retrofitCall() {
         Retrofit retrofit = RetrofitSingleton.getInstance();
         MealServices mealServices = retrofit.create(MealServices.class);
         Single<MealList> mealCall = mealServices.getMealList();
@@ -116,9 +122,24 @@ public class TypeInFragment extends Fragment {
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
+    }
 
-        addButtonOnClickEvent(addButton);
-        sendingUserToDisplayAllMealFragment();
+    @Override
+    public void onResume() {
+        super.onResume();
+        userSelections.clear();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        compositeDisposable.clear();
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        vpListener = null;
     }
 
     private void addButtonOnClickEvent(Button addButton) {
@@ -158,23 +179,5 @@ public class TypeInFragment extends Fragment {
         for (Meal meal1 : meals) {
             ingredients.addAll(meal1.getKeywords());
         }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        userSelections.clear();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        compositeDisposable.clear();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        vpListener = null;
     }
 }
