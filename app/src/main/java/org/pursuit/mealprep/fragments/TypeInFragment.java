@@ -10,10 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.pursuit.mealprep.FragmentInteractionListener;
 import org.pursuit.mealprep.R;
@@ -25,6 +24,7 @@ import org.pursuit.mealprep.network.RetrofitSingleton;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -34,21 +34,21 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
 
-public class TypeInFragment extends Fragment implements IngredientSelectedListener {
+public class TypeInFragment extends Fragment {
 
     private FragmentInteractionListener vpListener;
     private CompositeDisposable compositeDisposable;
+    private ArrayAdapter<String> adapter;
 
     private Set<String> ingredients = new TreeSet<>();
     private ArrayList<String> userSelections = new ArrayList<>();
     private ArrayList<Meal> listOfMeals = new ArrayList<>();
     private List<Ingredient> uniqueIngredientList;
 
+    private AutoCompleteTextView ingredients_suggestion_box;
     private ListView userSelectionsListView;
-    private EditText userIngredientsEditText;
+    private Button showRecipeButton;
 
-    private ArrayAdapter<String> adapter;
-    private List<String> newUserSelectionsList;
 
     public TypeInFragment() {
     }
@@ -88,11 +88,11 @@ public class TypeInFragment extends Fragment implements IngredientSelectedListen
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-//        ingredientsRecyclerView = view.findViewById(R.id.ingredients_recycler_view);
+
         Button addButton = view.findViewById(R.id.type_in_add_button);
-        Button showRecipeButton = view.findViewById(R.id.show_recipe_button);
+        showRecipeButton = view.findViewById(R.id.type_in_show_recipe_button);
         userSelectionsListView = view.findViewById(R.id.type_in_ingredients_listview);
-        userIngredientsEditText = view.findViewById(R.id.type_in_edit_text);
+        ingredients_suggestion_box = view.findViewById(R.id.suggestion_box);
 
         Retrofit retrofit = RetrofitSingleton.getInstance();
         MealServices mealServices = retrofit.create(MealServices.class);
@@ -108,37 +108,35 @@ public class TypeInFragment extends Fragment implements IngredientSelectedListen
 
                             listOfMeals.addAll(meals);
 
-
                             transformingSetOfIngredientsIntoAList();
+
+                            ArrayAdapter<Ingredient> adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), android.R.layout.simple_spinner_dropdown_item, uniqueIngredientList);
+                            ingredients_suggestion_box.setAdapter(adapter);
 
                         },
                         throwable -> Log.d("TAG", "onFailure" + throwable)
                 ));
 
+        addButtonOnClickEvent(addButton);
+        sendingUserToDisplayAllMealFragment();
+    }
+
+    private void addButtonOnClickEvent(Button addButton) {
         addButton.setOnClickListener(v -> {
-            newUserSelectionsList = new ArrayList<>();
-            String userInput = userIngredientsEditText.getText().toString();
 
-            if (newUserSelectionsList.contains(userInput)) {
-                Toast.makeText(getContext(), "Ingredient has already been added", Toast.LENGTH_LONG).show();
-            } else if (userInput == null || userInput.trim().equals("")) {
-                Toast.makeText(getContext(), "Ingredient field is empty", Toast.LENGTH_LONG).show();
-            } else {
-                newUserSelectionsList.add(userInput.trim());
-                adapter = new ArrayAdapter<>(getContext(), R.layout.type_in_itemview, R.id.type_in_user_input, newUserSelectionsList);
-                adapter.notifyDataSetChanged();
-                userSelectionsListView.setAdapter(adapter);
+            String userInput = ingredients_suggestion_box.getText().toString();
 
-                userIngredientsEditText.setText("");
+            for (Ingredient item : uniqueIngredientList) {
+                if (!userSelections.contains(userInput)) {
+                    userSelections.add(userInput);
+                }
             }
-        });
+            Log.d("TAG", "userSections: " + userSelections.toString());
 
-//        showRecipeButton.setOnClickListener(v -> {
-//            if (vpListener != null) {
-//                vpListener.toDisplayAllMealFragment(listOfMeals, newUserSelectionsList);
-//            }
-//        });
-//        sendingUserToDisplayAllMealFragment();
+            adapter = new ArrayAdapter<>(Objects.requireNonNull(getContext()), R.layout.type_in_itemview, R.id.type_in_user_input, userSelections);
+            adapter.notifyDataSetChanged();
+            userSelectionsListView.setAdapter(adapter);
+        });
     }
 
     private void transformingSetOfIngredientsIntoAList() {
@@ -148,13 +146,13 @@ public class TypeInFragment extends Fragment implements IngredientSelectedListen
         }
     }
 
-//    private void sendingUserToDisplayAllMealFragment() {
-//        showRecipeButton.setOnClickListener(v -> {
-//            if (vpListener != null) {
-//                vpListener.toDisplayAllMealFragment(listOfMeals, newUserSelectionsList);
-//            }
-//        });
-//    }
+    private void sendingUserToDisplayAllMealFragment() {
+        showRecipeButton.setOnClickListener(v -> {
+            if (vpListener != null) {
+                vpListener.toDisplayAllMealFragment(listOfMeals, userSelections);
+            }
+        });
+    }
 
     public void addsAllUniqueIngredients(List<Meal> meals) {
         for (Meal meal1 : meals) {
@@ -179,42 +177,4 @@ public class TypeInFragment extends Fragment implements IngredientSelectedListen
         super.onDetach();
         vpListener = null;
     }
-
-    @Override
-    public void addItem(Ingredient ingredient) {
-        userSelections.add(ingredient.name);
-//        Toast.makeText(getContext(), ingredient + " has been add", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void removeItem(Ingredient ingredient) {
-        //left empty
-    }
-
-//    @Override
-//    public boolean onQueryTextSubmit(String s) {
-//        return false;
-//    }
-//
-//    @Override
-//    public boolean onQueryTextChange(String s) {
-//        //1- add every item inside of userSelections list into my newUserSelectionsList --might be redundant
-//        //2- on Button click, if ingredients.getName.toLowerCase.contains(s)
-//        //   then add that to my newUserSelectionsList
-//        //3- setText to the newUserSelectionsList
-//        List<Ingredient> newUserSelectionsList = new ArrayList<>();
-//        for (Ingredient ingredients : uniqueIngredientList) {
-////            newUserSelectionsList.add(ingredients);
-//            addButton.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(ingredients.name.toLowerCase().contains(s.toLowerCase())){
-//                        newUserSelectionsList.add(ingredients);
-//                        userSelectionsTextView.setText(newUserSelectionsList.toString());
-//                    }
-//                }
-//            });
-//        }
-//        return false;
-//    }
 }

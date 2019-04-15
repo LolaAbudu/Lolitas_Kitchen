@@ -23,4 +23,5 @@
     <string name="projects_menu_linkedin_title">LinkedIn</string>
     <string name="fragment_splash_kitchen_textview_text">Kitchen</string>
     <string name="fragment_splash_lolita_textview_text">Lolita\'s</string>
+    <string name="fragment_type_in_auto_complete_textview_hint">Enter Ingredients here</string>
 </resources>
