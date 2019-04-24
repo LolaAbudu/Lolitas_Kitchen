@@ -50,7 +50,7 @@
     <dimen name="fragment_selected_meal_cook_time_textview_layout_marginEnd">8dp</dimen>
     <dimen name="fragment_selected_meal_share_button_marginTop">8dp</dimen>
     <dimen name="fragment_splash_kitchen_layout_marginTop">300dp</dimen>
-    <dimen name="fragment_splash_kitchen_textSize">110sp</dimen>
+    <dimen name="fragment_splash_kitchen_textSize">100sp</dimen>
     <dimen name="fragment_splash_kitchen_background_layoit_width">380dp</dimen>
     <dimen name="fragment_splash_kitchen_background_layoit_height">150dp</dimen>
     <dimen name="fragment_splash_kitchen_background_layout_marginTop">300dp</dimen>
